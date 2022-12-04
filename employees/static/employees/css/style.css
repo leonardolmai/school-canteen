@@ -1,0 +1,88 @@
+.employees__title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 2.6rem;
+}
+.employees__div {
+  border: #BBBCBE 3px solid;
+  padding: 2%;
+}
+.employees__input {
+  height: 50px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+  padding-left: 10px;
+}
+.employees__select {
+  height: 50px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+  padding-left: 10px;
+}
+.employees__button {
+  background-color: #233342;
+  margin: auto;
+  height: 50px;
+  font-size: 1.8rem;
+  border: none;
+}
+.employees__table {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.employees__thead {
+  font-size: 1.6rem;
+  background-color: #233342;
+}
+.employees__tr {
+  border-color: #000000;
+  border-bottom-width: 2px;
+}
+.employees__div-table {
+  overflow: scroll;
+}
+
+.form__input {
+  line-height: 40px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+}
+
+.details__div-photo {
+  width: 200px;
+  height: 200px;
+}
+.details__photo {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.icon {
+  width: 20px;
+}
+
+.icon-detail {
+  width: 20px;
+  filter: invert(13%) sepia(95%) saturate(6777%) hue-rotate(235deg) brightness(96%) contrast(95%);
+}
+
+.icon-edit {
+  width: 20px;
+  filter: invert(39%) sepia(97%) saturate(1888%) hue-rotate(1deg) brightness(103%) contrast(106%);
+}
+
+.icon-delete {
+  width: 20px;
+  filter: invert(10%) sepia(96%) saturate(4569%) hue-rotate(12deg) brightness(103%) contrast(126%);
+}
+
+@media (max-width: 768px) {
+  .employees__div-forms {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=style.css.map */
