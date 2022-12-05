@@ -10,8 +10,6 @@
   <div class="employees__div">
     <div class="pb-3 d-flex justify-content-between employees__div-forms">
       <form class="d-flex align-items-center" action="{% url 'employees' %}" method="GET">
-        {% csrf_token %}
-
         <select name="employees_select" class="form-control employees__select">
           <option value="" selected disabled>Ordenar por</option>
           <option value="first_name">Nome</option>
@@ -25,8 +23,6 @@
       </form>
 
       <form class="d-flex align-items-center" action="{% url 'employees' %}" method="GET">
-        {% csrf_token %}
-
         <input type="text" class="form-control employees__input" name="search" placeholder="Buscar...">
 
         <button type="submit" class="btn text-white">
@@ -250,7 +246,9 @@
                   <div class="modal-body">
                     <form action="{% url 'delete_employee' 1 %}" method="POST">
                       {% csrf_token %}
+
                       <p>Confime abaixo se deseja excluir Funcinário 1</p>
+                      
                       <div class="modal-footer">
                         <button class="btn btn-primary employees__button">Excluir</button>
                       </div>
