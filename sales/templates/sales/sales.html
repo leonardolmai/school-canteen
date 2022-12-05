@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'sales/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<section class="p-5 sales">
+  <h1 class="pt-3 pb-5 sales__title">Vendas</h1>
+
+  <div class="sales__div">
+    <div class="pb-3 d-flex justify-content-between sales__div-forms">
+      <form class="d-flex align-items-center" action="{% url 'sales' %}" method="GET">
+        <select name="sales_select" class="form-control sales__select">
+          <option value="" selected disabled>Ordenar por</option>
+          <option value="id">ID</option>
+          <option value="increasing_total">Total crescente</option>
+          <option value="descending_total">Total decrescente</option>
+          <option value="rising_date">Data crescente</option>
+          <option value="falling_date">Data decrescente</option>
+        </select>
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/sort.svg' %}" alt="Ícone ordenar" class="icon">
+        </button>
+      </form>
+
+      <form class="d-flex align-items-center" action="{% url 'sales' %}" method="GET">
+        <input type="text" class="form-control sales__input" name="search" placeholder="Buscar...">
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/search.svg' %}" alt="Ícone pesquisa" class="icon">
+        </button>
+      </form>
+
+      <form class="d-flex align-items-center" action="{% url 'sales' %}" method="GET">
+        <select name="sales_select" class="form-control sales__select">
+          <option value="" selected disabled>Filtrar por cliente</option>
+          {% for c in '00000' %}
+          <option value="id">Cliente 1</option>
+          {% endfor %}
+        </select>
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/filter.svg' %}" alt="Ícone filtrar" class="icon">
+        </button>
+      </form>
+    </div>
+
+    <div class="sales__div-table">
+      <table class="table sales__table">
+        <thead class="text-white sales__thead">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Método de pagamento</th>
+            <th scope="col">Total</th>
+            <th scope="col">CPF cliente</th>
+            <th scope="col">Data</th>
+            <th scope="col">Detalhes</th>
+          </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+          {% for sale in '0000000000' %}
+          <tr class="sales__tr">
+            <td scope="row">1</td>
+            <td>1</td>
+            <td>Cartão</td>
+            <td>R$50,00</td>
+            <td>12300000000</td>
+            <td>01/12/2022</td>
+            <td>
+              <a class="btn" data-bs-toggle="modal" href="#details_sale" role="button">
+                <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
+              </a>
+            </td>
+
+            <div class="modal fade sales__forms" id="details_sale" aria-hidden="true" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content px-5">
+                  <div class="modal-header">
+                    <h1 class="modal-title">Detalhes</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body m-auto">
+                    <p><b>ID:</b> 1</p>
+                    <p><b>Quantidade:</b> 1</p>
+                    <ul>
+                      <li>Produto 1: 1</li>
+                    </ul>
+                    <p><b>Método de pagamento:</b> Cartão</p>
+                    <p><b>Total:</b> R$50,00</p>
+                    <p><b>CPF cliente:</b> 12300000000</p>
+                    <p><b>Data e hora:</b> 01/12/2022 - 6:20</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section class="p-5 report">
+  <h1 class="pt-3 pb-5 report__title">Relatórios</h1>
+
+  <div class="report__div">
+    <form class="pb-5 report__form" action="{% url 'day-report' %}" method="GET">
+      <span class="report__span">Gerar relatório de vendas do último dia</span>
+      <button type="submit" class="btn btn-primary px-5 text-white report__button">Gerar</button>
+    </form>
+    <form class="pb-5 report__form" action="{% url 'day-report' %}" method="GET">
+      <span class="report__span">Gerar relatório de vendas da última semana</span>
+      <button type="submit" class="btn btn-primary px-5 text-white report__button">Gerar</button>
+    </form>
+    <form class="report__form" action="{% url 'day-report' %}" method="GET">
+      <span class="report__span">Gerar relatório de vendas do último mês</span>
+      <button type="submit" class="btn btn-primary px-5 text-white report__button">Gerar</button>
+    </form>
+  </div>
+</section>
+{% endblock content %}
