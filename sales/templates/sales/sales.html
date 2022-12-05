@@ -112,11 +112,11 @@
       <span class="report__span">Gerar relatório de vendas do último dia</span>
       <button type="submit" class="btn btn-primary px-5 text-white report__button">Gerar</button>
     </form>
-    <form class="pb-5 report__form" action="{% url 'day-report' %}" method="GET">
+    <form class="pb-5 report__form" action="{% url 'week-report' %}" method="GET">
       <span class="report__span">Gerar relatório de vendas da última semana</span>
       <button type="submit" class="btn btn-primary px-5 text-white report__button">Gerar</button>
     </form>
-    <form class="report__form" action="{% url 'day-report' %}" method="GET">
+    <form class="report__form" action="{% url 'month-report' %}" method="GET">
       <span class="report__span">Gerar relatório de vendas do último mês</span>
       <button type="submit" class="btn btn-primary px-5 text-white report__button">Gerar</button>
     </form>
