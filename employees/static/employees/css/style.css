@@ -40,7 +40,7 @@
   border-bottom-width: 2px;
 }
 .employees__div-table {
-  overflow: scroll;
+  overflow: auto;
 }
 
 .form__input {
