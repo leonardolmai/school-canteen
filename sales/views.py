@@ -11,12 +11,6 @@ def register_sale(request):
     elif request.method == 'POST':
       return redirect('register-sale')
 
-def add_cart_product(request, id):
-    return redirect('register-sale')
-
-def delete_cart_product(request, id):
-    return redirect('register-sale')
-
 def day_report(request):
     return redirect('sales')
 
