@@ -115,6 +115,11 @@ $light-gray-color: #E8E9EB;
   .report {
     &__span {
       min-width: auto;
+      border-radius: 0;
+    }
+
+    &__button {
+      border-radius: 0;
     }
 
     &__form {

@@ -90,6 +90,10 @@
   }
   .report__span {
     min-width: auto;
+    border-radius: 0;
+  }
+  .report__button {
+    border-radius: 0;
   }
   .report__form {
     flex-direction: column;
