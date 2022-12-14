@@ -58,6 +58,85 @@ $light-gray-color: #E8E9EB;
   }
 }
 
+.register-sale {
+  &__title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.6rem;
+  }
+
+  &__div {
+    border: $dark-gray-color 3px solid;
+    padding: 2%;
+  }
+
+  &__input {
+    height: 50px;
+    font-size: 1.8rem;
+    border: $dark-gray-color 1px solid;
+    padding-left: 10px;
+  }
+
+  &__select {
+    height: 50px;
+    font-size: 1.8rem;
+    border: $dark-gray-color 1px solid;
+    padding-left: 10px;
+  }
+
+  &__button {
+    background-color: $dark-blue-color;
+    margin: auto;
+    height: 50px;
+    font-size: 1.8rem;
+    border: none;
+  }
+
+  &__table {
+    min-width: max-content;
+  }
+
+  &__thead {
+    font-size: 1.6rem;
+    background-color: $dark-blue-color;
+  }
+
+  &__tr {
+    border-color: $black-color;
+    border-bottom-width: 2px;
+  }
+
+  &__table-label {
+    margin-bottom: 0;
+  }
+
+  &__table-input {
+    height: 32px;
+    font-size: 1.6rem;
+  }
+
+  &__div-table {
+    overflow: auto;
+  }
+
+  &__div-button {
+    align-self: flex-end;
+  }
+
+  &__cart-form {
+    border-top: $dark-gray-color 3px solid;
+  }
+
+  &__div-total {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  &__total {
+    background-color: $light-blue-color;
+  }
+}
+
 .report {
   &__title {
     text-align: center;
@@ -105,6 +184,11 @@ $light-gray-color: #E8E9EB;
   filter: invert(13%) sepia(95%) saturate(6777%) hue-rotate(235deg) brightness(96%) contrast(95%);
 }
 
+.icon-remove {
+  width: 20px;
+  filter: invert(10%) sepia(96%) saturate(4569%) hue-rotate(12deg) brightness(103%) contrast(126%);
+}
+
 @media (max-width: 768px) {
   .sales {
     &__div-forms {
@@ -112,9 +196,28 @@ $light-gray-color: #E8E9EB;
     }
   }
 
+  .register-sale {
+    &__form {
+      flex-direction: column;
+    }
+
+    &__div-button {
+      align-self: flex-start;
+    }
+
+    &__checkout {
+      flex-direction: column;
+    }
+  }
+
   .report {
     &__span {
       min-width: auto;
+      border-radius: 0;
+    }
+
+    &__button {
+      border-radius: 0;
     }
 
     &__form {

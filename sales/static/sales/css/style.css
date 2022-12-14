@@ -43,6 +43,71 @@
   overflow: auto;
 }
 
+.register-sale__title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 2.6rem;
+}
+.register-sale__div {
+  border: #BBBCBE 3px solid;
+  padding: 2%;
+}
+.register-sale__input {
+  height: 50px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+  padding-left: 10px;
+}
+.register-sale__select {
+  height: 50px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+  padding-left: 10px;
+}
+.register-sale__button {
+  background-color: #233342;
+  margin: auto;
+  height: 50px;
+  font-size: 1.8rem;
+  border: none;
+}
+.register-sale__table {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.register-sale__thead {
+  font-size: 1.6rem;
+  background-color: #233342;
+}
+.register-sale__tr {
+  border-color: #000000;
+  border-bottom-width: 2px;
+}
+.register-sale__table-label {
+  margin-bottom: 0;
+}
+.register-sale__table-input {
+  height: 32px;
+  font-size: 1.6rem;
+}
+.register-sale__div-table {
+  overflow: auto;
+}
+.register-sale__div-button {
+  align-self: flex-end;
+}
+.register-sale__cart-form {
+  border-top: #BBBCBE 3px solid;
+}
+.register-sale__div-total {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.register-sale__total {
+  background-color: #4DA6F8;
+}
+
 .report__title {
   text-align: center;
   font-weight: 600;
@@ -84,12 +149,30 @@
   filter: invert(13%) sepia(95%) saturate(6777%) hue-rotate(235deg) brightness(96%) contrast(95%);
 }
 
+.icon-remove {
+  width: 20px;
+  filter: invert(10%) sepia(96%) saturate(4569%) hue-rotate(12deg) brightness(103%) contrast(126%);
+}
+
 @media (max-width: 768px) {
   .sales__div-forms {
     flex-direction: column;
   }
+  .register-sale__form {
+    flex-direction: column;
+  }
+  .register-sale__div-button {
+    align-self: flex-start;
+  }
+  .register-sale__checkout {
+    flex-direction: column;
+  }
   .report__span {
     min-width: auto;
+    border-radius: 0;
+  }
+  .report__button {
+    border-radius: 0;
   }
   .report__form {
     flex-direction: column;
