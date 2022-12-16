@@ -1,0 +1,80 @@
+.products__title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 2.6rem;
+}
+.products__div {
+  border: #BBBCBE 3px solid;
+  padding: 2%;
+}
+.products__input {
+  height: 50px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+  padding-left: 10px;
+}
+.products__select {
+  height: 50px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+  padding-left: 10px;
+}
+.products__button {
+  background-color: #233342;
+  margin: auto;
+  height: 50px;
+  font-size: 1.8rem;
+  border: none;
+}
+.products__table {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.products__thead {
+  font-size: 1.6rem;
+  background-color: #233342;
+}
+.products__tr {
+  border-color: #000000;
+  border-bottom-width: 2px;
+}
+.products__div-table {
+  overflow: auto;
+}
+
+.form__input {
+  line-height: 40px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+}
+.form__textarea {
+  line-height: 40px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+}
+
+.icon {
+  width: 20px;
+}
+
+.icon-detail {
+  width: 20px;
+  filter: invert(13%) sepia(95%) saturate(6777%) hue-rotate(235deg) brightness(96%) contrast(95%);
+}
+
+.icon-edit {
+  width: 20px;
+  filter: invert(39%) sepia(97%) saturate(1888%) hue-rotate(1deg) brightness(103%) contrast(106%);
+}
+
+.icon-delete {
+  width: 20px;
+  filter: invert(10%) sepia(96%) saturate(4569%) hue-rotate(12deg) brightness(103%) contrast(126%);
+}
+
+@media (max-width: 768px) {
+  .products__div-forms {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=style.css.map */
