@@ -1,0 +1,93 @@
+$black-color: #000000;
+$dark-blue-color: #233342;
+$light-blue-color: #4DA6F8;
+$dark-gray-color: #BBBCBE;
+$light-gray-color: #E8E9EB;
+
+.clients {
+  &__title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.6rem;
+  }
+
+  &__div {
+    border: $dark-gray-color 3px solid;
+    padding: 2%;
+  }
+
+  &__input {
+    height: 50px;
+    font-size: 1.8rem;
+    border: $dark-gray-color 1px solid;
+    padding-left: 10px;
+  }
+
+  &__select {
+    height: 50px;
+    font-size: 1.8rem;
+    border: $dark-gray-color 1px solid;
+    padding-left: 10px;
+  }
+
+  &__button {
+    background-color: $dark-blue-color;
+    margin: auto;
+    height: 50px;
+    font-size: 1.8rem;
+    border: none;
+  }
+
+  &__table {
+    min-width: max-content;
+  }
+
+  &__thead {
+    font-size: 1.6rem;
+    background-color: $dark-blue-color;
+  }
+
+  &__tr {
+    border-color: $black-color;
+    border-bottom-width: 2px;
+  }
+
+  &__div-table {
+    overflow: auto;
+  }
+}
+
+.form {
+  &__input {
+    line-height: 40px;
+    font-size: 1.8rem;
+    border: $dark-gray-color 1px solid;
+  }
+}
+
+.icon {
+  width: 20px;
+}
+
+.icon-detail {
+  width: 20px;
+  filter: invert(13%) sepia(95%) saturate(6777%) hue-rotate(235deg) brightness(96%) contrast(95%);
+}
+
+.icon-edit {
+  width: 20px;
+  filter: invert(39%) sepia(97%) saturate(1888%) hue-rotate(1deg) brightness(103%) contrast(106%);
+}
+
+.icon-delete {
+  width: 20px;
+  filter: invert(10%) sepia(96%) saturate(4569%) hue-rotate(12deg) brightness(103%) contrast(126%);
+}
+
+@media (max-width: 768px) {
+  .clients {
+    &__div-forms {
+      flex-direction: column;
+    }
+  }
+}
