@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<section class="p-5 summary">
+  <h1 class="pt-3 pb-5 summary__title">Resumo</h1>
+
+  <div class="summary__div">
+    <div>
+      <div class="row justify-content-around">
+        <div class="col-sm-12 col-lg-5 p-2 m-3 summary__div-table">
+          <table class="table summary__table">
+            <h2 class="text-center summary__table-title">Produtos mais vendidos</h2>
+            <thead class="text-white summary__thead">
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Quantidade</th>
+              </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+              {% for product in '00000' %}
+              <tr class="summary__tr">
+                <td scope="row">Produto 1</td>
+                <td>8</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-12 col-lg-5 p-2 m-3 summary__div-table">
+          <table class="table summary__table">
+            <h2 class="text-center summary__table-title">Clientes que mais compram</h2>
+            <thead class="text-white summary__thead">
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Número de compras</th>
+              </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+              {% for client in '00000' %}
+              <tr class="summary__tr">
+                <td scope="row">Cliente 1</td>
+                <td>5</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-12 col-lg-5 p-2 m-3 summary__div-table">
+          <table class="table summary__table">
+            <h2 class="text-center summary__table-title">Produtos com vencimento próximo</h2>
+            <thead class="text-white summary__thead">
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Data</th>
+              </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+              {% for product in '00000' %}
+              <tr class="summary__tr">
+                <td scope="row">Produto 1</td>
+                <td>03/12/2022</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-12 col-lg-5 p-2 m-3 summary__div-table">
+          <table class="table summary__table">
+            <h2 class="text-center summary__table-title">Produtos com baixo estoque</h2>
+            <thead class="text-white summary__thead">
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Quantidade</th>
+              </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+              {% for product in '00000' %}
+              <tr class="summary__tr">
+                <td scope="row">Produto 1</td>
+                <td>2</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="p-5 sales-summary">
+  <h1 class="pt-3 pb-5 sales-summary__title">Resumo de Vendas</h1>
+
+  <div class="sales-summary__div">
+    <div>
+      <div class="row justify-content-around">
+        <div class="col-sm-12 col-md-5 col-lg-2 p-2 m-3 sales-summary__card">
+          <div class="card text-bg-light mb-3">
+            <div class="card-header text-white sales-summary__card-header">Hoje</div>
+            <div class="card-body">
+              <h5 class="card-title sales-summary__card-title">15 vendas</h5>
+              <p class="card-text sales-summary__card-text">Total: R$55,00</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5 col-lg-2 p-2 m-3 sales-summary__card">
+          <div class="card text-bg-light mb-3">
+            <div class="card-header text-white sales-summary__card-header">Ontem</div>
+            <div class="card-body">
+              <h5 class="card-title sales-summary__card-title">17 vendas</h5>
+              <p class="card-text sales-summary__card-text">Total: R$60,00</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5 col-lg-2 p-2 m-3 sales-summary__card">
+          <div class="card text-bg-light mb-3">
+            <div class="card-header text-white sales-summary__card-header">Esta Semana</div>
+            <div class="card-body">
+              <h5 class="card-title sales-summary__card-title">160 vendas</h5>
+              <p class="card-text sales-summary__card-text">Total: R$300,00</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5 col-lg-2 p-2 m-3 sales-summary__card">
+          <div class="card text-bg-light mb-3">
+            <div class="card-header text-white sales-summary__card-header">Este Mês</div>
+            <div class="card-body">
+              <h5 class="card-title sales-summary__card-title">700 vendas</h5>
+              <p class="card-text sales-summary__card-text">Total: R$1100,00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

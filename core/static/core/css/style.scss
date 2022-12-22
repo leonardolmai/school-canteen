@@ -1,3 +1,4 @@
+$black-color: #000000;
 $dark-blue-color: #233342;
 $light-blue-color: #4DA6F8;
 $dark-gray-color: #BBBCBE;
@@ -73,6 +74,69 @@ body {
   }
 }
 
+.summary {
+  &__title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.6rem;
+  }
+
+  &__div {
+    border: $dark-gray-color 3px solid;
+    padding: 2%;
+  }
+
+  &__table-title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.8rem;
+  }
+
+  &__table {
+    min-width: max-content;
+  }
+
+  &__thead {
+    font-size: 1.6rem;
+    background-color: $dark-blue-color;
+  }
+
+  &__tr {
+    border-color: $black-color;
+    border-bottom-width: 2px;
+  }
+
+  &__div-table {
+    border: $dark-gray-color 3px solid;
+    overflow: auto;
+  }
+}
+
+.sales-summary {
+  &__title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.6rem;
+  }
+
+  &__div {
+    border: $dark-gray-color 3px solid;
+    padding: 2%;
+  }
+
+  &__card-header {
+    background-color: $dark-blue-color;
+  }
+
+  &__card-title {
+    font-size: 1.6rem;
+  }
+
+  &__card-text {
+    font-size: 2.0rem;
+  }
+}
+
 @media (max-width: 992px) {
   .login {
     &__left {
@@ -97,6 +161,13 @@ body {
 
     &__right {
       width: 100%;
+    }
+  }
+
+  .summary {
+    &__div-table {
+      border-left: none;
+      border-right: none;
     }
   }
 }

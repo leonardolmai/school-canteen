@@ -7,3 +7,6 @@ def login(request):
 
 def logout(request):
     return redirect('login')
+
+def summary(request):
+    return render(request, 'core/summary.html')
