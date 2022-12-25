@@ -1,0 +1,143 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;
+}
+
+.login {
+  display: flex;
+  min-height: 100vh;
+}
+.login__left {
+  width: 50%;
+  background-image: url("../img/canteen.jpg");
+  background-size: cover;
+  filter: brightness(70%);
+}
+.login__right {
+  width: 50%;
+  min-height: 100%;
+  background-color: #233342;
+  display: flex;
+}
+.login__form-container {
+  background-color: #E8E9EB;
+  border-radius: 25px;
+  max-width: 600px;
+}
+.login__title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.6rem;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+}
+.login__form-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.6rem;
+}
+.login__field {
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+.login__input {
+  height: 50px;
+  font-size: 1.8rem;
+  border: #BBBCBE 1px solid;
+}
+.login__button {
+  background-color: #233342;
+  margin: auto;
+  height: 50px;
+  font-size: 1.8rem;
+  border: none;
+}
+
+.summary__title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 2.6rem;
+}
+.summary__div {
+  border: #BBBCBE 3px solid;
+  padding: 2%;
+}
+.summary__table-title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+.summary__table {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.summary__thead {
+  font-size: 1.6rem;
+  background-color: #233342;
+}
+.summary__tr {
+  border-color: #000000;
+  border-bottom-width: 2px;
+}
+.summary__div-table {
+  border: #BBBCBE 3px solid;
+  overflow: auto;
+}
+
+.sales-summary__title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 2.6rem;
+}
+.sales-summary__div {
+  border: #BBBCBE 3px solid;
+  padding: 2%;
+}
+.sales-summary__card-header {
+  background-color: #233342;
+}
+.sales-summary__card-title {
+  font-size: 1.6rem;
+}
+.sales-summary__card-text {
+  font-size: 2rem;
+}
+
+@media (max-width: 992px) {
+  .login__left {
+    width: 40%;
+  }
+  .login__right {
+    width: 60%;
+  }
+  .login__form-title {
+    margin: 10px auto;
+  }
+}
+@media (max-width: 768px) {
+  .login__left {
+    display: none;
+  }
+  .login__right {
+    width: 100%;
+  }
+  .summary__div-table {
+    border-left: none;
+    border-right: none;
+  }
+}
+@media (max-width: 576px) {
+  .login__title {
+    font-size: 1.6rem;
+  }
+  .login__button {
+    margin-bottom: 25px;
+  }
+}/*# sourceMappingURL=style.css.map */

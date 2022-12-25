@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<section class="p-5 products">
+  <h1 class="pt-3 pb-5 products__title">Produtos</h1>
+
+  <div class="products__div">
+    <div class="pb-3 d-flex justify-content-between products__div-forms">
+      <form class="d-flex align-items-center" action="{% url 'products' %}" method="GET">
+        <select name="sort-products_select" class="form-control products__select">
+          <option value="" selected disabled>Ordenar por</option>
+          <option value="name">Nome</option>
+          <option value="increasing_price">Preço crescente</option>
+          <option value="descending_price">Preço decrescente</option>
+          <option value="increasing_quantity">Quantidade crescente</option>
+          <option value="descending_quantity">Quantidade decrescente</option>
+          <option value="increasing_validity">Validade crescente</option>
+          <option value="descending_validity">Validade decrescente</option>
+        </select>
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/sort.svg' %}" alt="Ícone ordenar" class="icon">
+        </button>
+      </form>
+
+      <form class="d-flex align-items-center" action="{% url 'products' %}" method="GET">
+        <select name="filter_products_select" class="form-control products__select">
+          <option value="" selected disabled>Filtrar por categoria</option>
+          {% for c in '00000' %}
+          <option value="id">Categoria A</option>
+          {% endfor %}
+        </select>
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/filter.svg' %}" alt="Ícone filtrar" class="icon">
+        </button>
+      </form>
+
+      <form class="d-flex align-items-center" action="{% url 'products' %}" method="GET">
+        <input type="text" class="form-control products__input" name="search" placeholder="Buscar...">
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/search.svg' %}" alt="Ícone pesquisa" class="icon">
+        </button>
+      </form>
+
+      <div>
+        <a data-bs-toggle="modal" href="#add_product" role="button">
+          <button type="submit" class="btn btn-primary px-5 text-white products__button">Adicionar</button>
+        </a>
+      </div>
+
+      <div class="modal fade" id="add_product" aria-hidden="true" tabindex="-1">
+        <div class="modal-lg modal-dialog modal-dialog-centered">
+          <div class="modal-content px-5">
+            <div class="modal-header">
+              <h1 class="modal-title">Cadastrar Produto</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <form action="{% url 'add_product' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="mb-5 form__field">
+                  <label for="name" class="form-label">Nome</label>
+                  <input type="text" class="form-control form__input" id="name">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="price" class="form-label">Preço</label>
+                  <input type="number" class="form-control form__input" id="price">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="quantity" class="form-label">Quantidade</label>
+                  <input type="number" class="form-control form__input" id="quantity">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="validity" class="form-label">Validade</label>
+                  <input type="date" class="form-control form__input" id="validity">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label class="form-label">Categoria</label>
+                  <select class="form-select form-control products__select">
+                    <option value="" selected disabled>Nenhuma selecionada</option>
+                    {% for c in '00000' %}
+                    <option value="id">Categoria 1</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="description" class="form-label">Descrição</label>
+                  <textarea class="form-control form__textarea" id="description" rows="3"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                  <button class="btn btn-primary products__button">Cadastrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="products__div-table">
+      <table class="table products__table">
+        <thead class="text-white products__thead">
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Validade</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+          {% for product in '0000000000' %}
+          <tr class="products__tr">
+            <td scope="row">Produto 1</td>
+            <td>R$5,00</td>
+            <td>123</td>
+            <td>Categoria A</td>
+            <td>02/12/2022</td>
+            <td>
+              <a class="btn" data-bs-toggle="modal" href="#details_product" role="button">
+                <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
+              </a>
+              <a class="btn" data-bs-toggle="modal" href="#edit_product" role="button">
+                <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
+              </a>
+              <a class="btn" data-bs-toggle="modal" href="#delete_product" role="button">
+                <img src="{% static 'img/delete.svg' %}" alt="Ícone apagar" class="icon-delete">
+              </a>
+            </td>
+
+            <div class="modal fade products__forms" id="details_product" aria-hidden="true" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content px-5">
+                  <div class="modal-header">
+                    <h1 class="modal-title">Detalhes</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body m-auto">
+                    <p><b>Nome:</b> Produto 1</p>
+                    <p><b>Preço:</b> R$5,00</p>
+                    <p><b>Quantidade:</b> 123</p>
+                    <p><b>Validade:</b> 02/12/2022</p>
+                    <p><b>Categoria:</b> Categoria A</p>
+                    <p><b>Descrição:</b> Descrição Produto 1</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade products__forms" id="edit_product" aria-hidden="true" tabindex="-1">
+              <div class="modal-lg modal-dialog modal-dialog-centered">
+                <div class="modal-content px-5">
+                  <div class="modal-header">
+                    <h1 class="modal-title">Editar Produto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <form action="{% url 'edit_product' 1 %}" method="POST">
+                      {% csrf_token %}
+
+                      <div class="mb-5 form__field">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control form__input" id="name" value="Produto 1">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="price" class="form-label">Preço</label>
+                        <input type="number" class="form-control form__input" id="price" value="5.00">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="quantity" class="form-label">Quantidade</label>
+                        <input type="number" class="form-control form__input" id="quantity" value="123">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="validity" class="form-label">Validade</label>
+                        <input type="date" class="form-control form__input" id="validity" value="2022-12-02">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label class="form-label">Categoria</label>
+                        <select class="form-select form-control products__select">
+                          <option value="" selected disabled>Nenhuma selecionada</option>
+                          {% for c in '00000' %}
+                          <option value="id">Categoria 1</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="description" class="form-label">Descrição</label>
+                        <textarea class="form-control form__input" id="description"
+                          rows="3">Descrição Produto 1</textarea>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button class="btn btn-primary products__button">Atualizar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade products__forms" id="delete_product" aria-hidden="true" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content px-5">
+                  <div class="modal-header">
+                    <h1 class="modal-title">Excluir Produto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <form action="{% url 'delete_product' 1 %}" method="POST">
+                      {% csrf_token %}
+
+                      <p>Confime abaixo se deseja excluir Produto 1</p>
+
+                      <div class="modal-footer">
+                        <button class="btn btn-primary products__button">Excluir</button>
+                      </div>
+                    </form>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock content %}

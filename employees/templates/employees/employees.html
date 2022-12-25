@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'employees/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<section class="p-5 employees">
+  <h1 class="pt-3 pb-5 employees__title">Funcinários</h1>
+
+  <div class="employees__div">
+    <div class="pb-3 d-flex justify-content-between employees__div-forms">
+      <form class="d-flex align-items-center" action="{% url 'employees' %}" method="GET">
+        <select name="employees_select" class="form-control employees__select">
+          <option value="" selected disabled>Ordenar por</option>
+          <option value="first_name">Nome</option>
+          <option value="last_name">Sobrenome</option>
+          <option value="position">Cargo</option>
+        </select>
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/sort.svg' %}" alt="Ícone ordenar" class="icon">
+        </button>
+      </form>
+
+      <form class="d-flex align-items-center" action="{% url 'employees' %}" method="GET">
+        <input type="text" class="form-control employees__input" name="search" placeholder="Buscar...">
+
+        <button type="submit" class="btn text-white">
+          <img src="{% static 'img/search.svg' %}" alt="Ícone pesquisa" class="icon">
+        </button>
+      </form>
+
+      <div>
+        <a data-bs-toggle="modal" href="#add_employee" role="button">
+          <button type="submit" class="btn btn-primary px-5 text-white employees__button">Adicionar</button>
+        </a>
+      </div>
+
+      <div class="modal fade" id="add_employee" aria-hidden="true" tabindex="-1">
+        <div class="modal-lg modal-dialog modal-dialog-centered">
+          <div class="modal-content px-5">
+            <div class="modal-header">
+              <h1 class="modal-title">Cadastrar Funcinário</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <form action="{% url 'add_employee' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="mb-5 form__field">
+                  <label for="first_name" class="form-label">Nome</label>
+                  <input type="text" class="form-control form__input" id="first_name">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="last_name" class="form-label">Sobrenome</label>
+                  <input type="text" class="form-control form__input" id="last_name">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="phone_number" class="form-label">Telefone</label>
+                  <input type="tel" class="form-control form__input" id="phone_number">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="cpf" class="form-label">CPF</label>
+                  <input type="text" class="form-control form__input" id="cpf">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="photo" class="form-label">Foto</label>
+                  <input type="file" class="form-control form__input" id="photo">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="email" class="form-control form__input" id="email">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <label for="password" class="form-label">Senha</label>
+                  <input type="password" class="form-control form__input" id="password">
+                </div>
+
+                <div class="mb-5 form__field">
+                  <p class="form-label">Cargo</p>
+                  <div class="d-flex flex-column">
+                    <div>
+                      <input type="radio" id="stocker" name="position" value="R" class="form__input">
+                      <label for="stocker">Repositor</label>
+                    </div>
+
+                    <div>
+                      <input type="radio" id="seller" name="position" value="V" class="form__input">
+                      <label for="seller">Vendedor</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button class="btn btn-primary employees__button">Cadastrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="employees__div-table">
+      <table class="table employees__table">
+        <thead class="text-white employees__thead">
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Sobrenome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Cargo</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+          {% for employee in '0000000000' %}
+          <tr class="employees__tr">
+            <td scope="row">Funcinário 1</td>
+            <td>Funcinário 1</td>
+            <td>12300000000</td>
+            <td>funcionario1@wxyz</td>
+            <td>(00)123123123</td>
+            <td>Repositor</td>
+            <td>
+              <a class="btn" data-bs-toggle="modal" href="#details_employee" role="button">
+                <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
+              </a>
+              <a class="btn" data-bs-toggle="modal" href="#edit_employee" role="button">
+                <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
+              </a>
+              <a class="btn" data-bs-toggle="modal" href="#delete_employee" role="button">
+                <img src="{% static 'img/delete.svg' %}" alt="Ícone apagar" class="icon-delete">
+              </a>
+            </td>
+
+            <div class="modal fade employees__forms" id="details_employee" aria-hidden="true" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content px-5">
+                  <div class="modal-header">
+                    <h1 class="modal-title">Detalhes</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body m-auto">
+                    <div class="mb-4 details__div-photo">
+                      <img src="{% static 'img/user.svg' %}" alt="Foto de perfil" class="details__photo">
+                    </div>
+                    <p><b>Nome:</b> Funcionário 1</p>
+                    <p><b>Sobrenome:</b> Funcionário 1</p>
+                    <p><b>CPF:</b> 12300000000</p>
+                    <p><b>E-mail:</b> funcionario@wxyz</p>
+                    <p><b>Telefone:</b> (00)123123123</p>
+                    <p><b>Cargo:</b> Repositor</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade employees__forms" id="edit_employee" aria-hidden="true" tabindex="-1">
+              <div class="modal-lg modal-dialog modal-dialog-centered">
+                <div class="modal-content px-5">
+                  <div class="modal-header">
+                    <h1 class="modal-title">Editar Funcinário</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <form action="{% url 'edit_employee' 1 %}" method="POST">
+                      {% csrf_token %}
+
+                      <div class="mb-5 form__field">
+                        <label for="first_name" class="form-label">Nome</label>
+                        <input type="text" class="form-control form__input" id="first_name" value="Funcinário 1">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="last_name" class="form-label">Sobrenome</label>
+                        <input type="text" class="form-control form__input" id="last_name" value="Funcinário 1">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="phone_number" class="form-label">Telefone</label>
+                        <input type="tel" class="form-control form__input" id="phone_number" value="(00)123123123">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" class="form-control form__input" id="cpf" value="12300000000">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="photo" class="form-label">Foto</label>
+                        <input type="file" class="form-control form__input" id="photo">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control form__input" id="email" value="funcionario1@wxyz">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" class="form-control form__input" id="password">
+                      </div>
+
+                      <div class="mb-5 form__field">
+                        <p class="form-label">Cargo</p>
+                        <div class="d-flex flex-column">
+                          <div>
+                            <input type="radio" id="stocker" name="position" value="R" class="form__input">
+                            <label for="stocker">Repositor</label>
+                          </div>
+
+                          <div>
+                            <input type="radio" id="seller" name="position" value="V" class="form__input">
+                            <label for="seller">Vendedor</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button class="btn btn-primary employees__button">Atualizar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade employees__forms" id="delete_employee" aria-hidden="true" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content px-5">
+                  <div class="modal-header">
+                    <h1 class="modal-title">Excluir Funcinário</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <form action="{% url 'delete_employee' 1 %}" method="POST">
+                      {% csrf_token %}
+
+                      <p>Confime abaixo se deseja excluir Funcinário 1</p>
+                      
+                      <div class="modal-footer">
+                        <button class="btn btn-primary employees__button">Excluir</button>
+                      </div>
+                    </form>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock content %}

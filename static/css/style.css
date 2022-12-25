@@ -1,0 +1,146 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  padding: 0 15px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #233342;
+}
+.header__ham {
+  width: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(53deg) brightness(109%) contrast(101%);
+}
+.header__right {
+  display: flex;
+  align-items: center;
+}
+.header__user {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.sidebar-main {
+  flex: 1;
+}
+
+.sidebar {
+  display: none;
+  min-width: 200px;
+  background-color: #233342;
+  font-weight: 600;
+}
+.sidebar--show {
+  display: initial;
+}
+.sidebar__ul {
+  padding: 0;
+}
+.sidebar__link {
+  text-decoration: none;
+  list-style: none;
+}
+.sidebar__li {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+.sidebar__li:hover {
+  background-color: #4DA6F8;
+}
+.sidebar__icon {
+  margin-right: 10px;
+  width: 20px;
+  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(53deg) brightness(109%) contrast(101%);
+}
+.sidebar__icon-red {
+  margin-right: 10px;
+  width: 20px;
+  filter: invert(12%) sepia(85%) saturate(4726%) hue-rotate(356deg) brightness(89%) contrast(116%);
+}
+.sidebar__quit {
+  color: #BB0000;
+}
+
+.main {
+  width: 100%;
+  background-color: #E8E9EB;
+}
+
+.footer {
+  padding: 0 15px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #233342;
+  font-size: 1.4rem;
+}
+.footer__link {
+  color: white;
+  text-decoration: none;
+}
+.footer__link:hover {
+  color: #4DA6F8;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    position: absolute;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 2;
+  }
+  .sidebar__li {
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  .header__left {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .header__right {
+    display: none;
+  }
+}
+@media (max-width: 576px) {
+  .header__logo {
+    max-width: 60%;
+  }
+  .footer {
+    font-size: 1rem;
+  }
+}
+@media (max-height: 300px) {
+  .sidebar {
+    font-size: 1.4rem;
+  }
+  .sidebar__icon, .sidebar__icon-red {
+    width: 10px;
+  }
+  .sidebar__li {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,185 @@
+$black-color: #000000;
+$dark-blue-color: #233342;
+$light-blue-color: #4DA6F8;
+$dark-gray-color: #BBBCBE;
+$light-gray-color: #E8E9EB;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.6rem;
+}
+
+.login {
+  display: flex;
+  min-height: 100vh;
+
+  &__left {
+    width: 50%;
+    background-image: url('../img/canteen.jpg');
+    background-size: cover;
+    filter: brightness(70%);
+  }
+
+  &__right {
+    width: 50%;
+    min-height: 100%;
+    background-color: $dark-blue-color;
+    display: flex;
+  }
+
+  &__form-container {
+    background-color: $light-gray-color;
+    border-radius: 25px;
+    max-width: 600px;
+  }
+
+  &__title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.6rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.6rem;
+  }
+
+  &__field {
+    font-weight: 400;
+    font-size: 1.8rem;
+  }
+
+  &__input {
+    height: 50px;
+    font-size: 1.8rem;
+    border: $dark-gray-color 1px solid;
+  }
+
+  &__button {
+    background-color: $dark-blue-color;
+    margin: auto;
+    height: 50px;
+    font-size: 1.8rem;
+    border: none;
+  }
+}
+
+.summary {
+  &__title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.6rem;
+  }
+
+  &__div {
+    border: $dark-gray-color 3px solid;
+    padding: 2%;
+  }
+
+  &__table-title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.8rem;
+  }
+
+  &__table {
+    min-width: max-content;
+  }
+
+  &__thead {
+    font-size: 1.6rem;
+    background-color: $dark-blue-color;
+  }
+
+  &__tr {
+    border-color: $black-color;
+    border-bottom-width: 2px;
+  }
+
+  &__div-table {
+    border: $dark-gray-color 3px solid;
+    overflow: auto;
+  }
+}
+
+.sales-summary {
+  &__title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.6rem;
+  }
+
+  &__div {
+    border: $dark-gray-color 3px solid;
+    padding: 2%;
+  }
+
+  &__card-header {
+    background-color: $dark-blue-color;
+  }
+
+  &__card-title {
+    font-size: 1.6rem;
+  }
+
+  &__card-text {
+    font-size: 2.0rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .login {
+    &__left {
+      width: 40%;
+    }
+
+    &__right {
+      width: 60%;
+    }
+
+    &__form-title {
+      margin: 10px auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .login {
+    &__left {
+      display: none;
+    }
+
+    &__right {
+      width: 100%;
+    }
+  }
+
+  .summary {
+    &__div-table {
+      border-left: none;
+      border-right: none;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .login {
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    &__button {
+      margin-bottom: 25px;
+    }
+  }
+}

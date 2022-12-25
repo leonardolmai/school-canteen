@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'sales/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<section class="p-5 register-sale">
+  <h1 class="pt-3 pb-5 register-sale__title">Registrar venda</h1>
+
+  <div class="register-sale__div">
+    <div class="pb-3">
+      <form action="." class="d-flex justify-content-between register-sale__form">
+        <div>
+          <label for="select-product" class="form-label">Selecionar produto</label>
+          <select name="select-product" class="form-select form-control register-sale__select" id="select-product">
+            <option value="" selected disabled>Nenhum selecionado</option>
+            {% for product in '12345' %}
+            <option value="{{p}}">Produto {{product}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label for="quantity" class="form-label">Quantidade</label>
+          <input type="number" class="form-control register-sale__input" name="quantity" id="quantity">
+        </div>
+
+        <div class="d-flex register-sale__div-button">
+          <button type="submit" class="btn btn-primary px-5 text-white register-sale__button"
+            id="add_cart">Adicionar</button>
+        </div>
+      </form>
+    </div>
+    <form action="{% url 'register-sale' %}" method="POST" class="pt-5 register-sale__cart-form">
+      {% csrf_token %}
+
+      <div class="register-sale__div-table">
+        <table class="table register-sale__table">
+          <thead class="text-white register-sale__thead">
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col">Total</th>
+              <th scope="col">Remover</th>
+            </tr>
+          </thead>
+
+          <tbody class="table-group-divider">
+            {% for product in '00000' %}
+            <tr class="register-sale__tr">
+              <td scope="row"><label for="product1" class="form-label register-sale__table-label">Produto 1</label></td>
+              <td><input type="number" class="form-control register-sale__table-input" value="1" id="product1"></td>
+              <td>R$5,00</td>
+              <td>
+                <a class="btn" id="remove-cart">
+                  <img src="{% static 'img/remove.svg' %}" alt="Ícone remover" class="icon-remove">
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex pt-4 justify-content-between register-sale__checkout">
+        <div class="register-sale__div-total">
+          <span>Valor Total</span>
+          <div class="px-5 py-4 register-sale__total">R$26,50</div>
+        </div>
+
+        <div>
+          <label for="select-payment-method" class="form-label">Método de pagamento</label>
+          <select name="register_sale_select" class="form-select form-control register-sale__select"
+            id="select-payment-method">
+            <option value="credit-cards" selected>Cartão de crédito</option>
+            <option value="debit-cards">Cartão de débito</option>
+            <option value="cash">Dinheiro</option>
+            <option value="pix">PIX</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="client-cpf" class="form-label">CPF do cliente</label>
+          <input type="text" class="form-control register-sale__input" name="client-cpf" id="client-cpf">
+        </div>
+
+        <div class="register-sale__div-button">
+          <button type="submit" class="btn btn-primary px-5 text-white register-sale__button">Registrar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock content %}
