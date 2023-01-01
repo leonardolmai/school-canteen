@@ -128,6 +128,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+STATIC_ROOT = Path.joinpath(BASE_DIR, 'staticfiles')
+
 
 # Login and Logout redirect url
 
