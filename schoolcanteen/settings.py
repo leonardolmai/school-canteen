@@ -134,6 +134,7 @@ STATIC_ROOT = Path.joinpath(BASE_DIR, 'staticfiles')
 # Media files
 
 MEDIA_URL = 'media/'
+MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
 
 
 # Login and Logout redirect url
