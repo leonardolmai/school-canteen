@@ -34,14 +34,19 @@
           <h2 class="mb-5 login__form-title">Fazer login</h2>
 
           <form class="login__form" action="" method="POST">
-            {% csrf_token %}
+            {% csrf_token %}   
+
+            {% bootstrap_messages %}
+
             {% bootstrap_form_errors form %}
+
             {% for field in form.visible_fields %}
             <div class="mb-5 login__field">
               <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
               {{ field }}
             </div>
             {% endfor %}
+            
             <button type="submit" class="btn btn-primary px-5 text-white login__button">Entrar</button>
           </form>
         </div>
