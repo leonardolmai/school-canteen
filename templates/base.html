@@ -37,6 +37,7 @@
     <div class="sidebar-main d-flex">
       <nav class="sidebar" id="sidebar">
         <ul class="sidebar__ul">
+          {% if perms.core.view_user %}
           <a href="{% url 'employees' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/employees.svg' %}" alt="Ícone funcinários" class="sidebar__icon">
@@ -44,6 +45,7 @@
               <span class="text-white">Funcinários</span>
             </li>
           </a>
+          {% endif %}
 
           <a href="{% url 'register-sale' %}" class="sidebar__link">
             <li class="sidebar__li">
