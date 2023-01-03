@@ -30,7 +30,7 @@
 
       <div class="header__right">
         <span class="text-white">Bem-vindo, {{ user.get_full_name }}</span>
-        <img src="{% static 'img/user.svg' %}" alt="Foto de perfil" class="header__user">
+        <img src="{{ user.photo.url }}" alt="Foto de perfil" class="header__user">
       </div>
     </header>
 
