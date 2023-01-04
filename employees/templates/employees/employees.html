@@ -132,9 +132,10 @@
             <td>{{ employee.phone }}</td>
             <td>{{ employee.groups.all.0 }}</td>
             <td>
-              <a class="btn" data-bs-toggle="modal" href="#details_employee" role="button">
+              <button hx-get="{% url 'detail_employee' employee.id %}" hx-target="#dialog" class="btn"
+                data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
-              </a>
+              </button>
               <a class="btn" data-bs-toggle="modal" href="#edit_employee" role="button">
                 <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
               </a>
@@ -143,28 +144,6 @@
               </a>
             </td>
 
-            <div class="modal fade employees__forms" id="details_employee" aria-hidden="true" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Detalhes</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body m-auto">
-                    <div class="mb-4 details__div-photo">
-                      <img src="{% static 'img/user.svg' %}" alt="Foto de perfil" class="details__photo">
-                    </div>
-                    <p><b>Nome:</b> Funcionário 1</p>
-                    <p><b>Sobrenome:</b> Funcionário 1</p>
-                    <p><b>CPF:</b> 12300000000</p>
-                    <p><b>E-mail:</b> funcionario@wxyz</p>
-                    <p><b>Telefone:</b> (00)123123123</p>
-                    <p><b>Cargo:</b> Repositor</p>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="modal fade employees__forms" id="edit_employee" aria-hidden="true" tabindex="-1">
               <div class="modal-lg modal-dialog modal-dialog-centered">
                 <div class="modal-content px-5">
@@ -294,6 +273,10 @@
         </ul>
       </nav>
       {% endif %}
+    </div>
+
+    <div id="modal" class="modal fade">
+      <div id="dialog" class="modal-dialog modal-dialog-centered" hx-target="this"></div>
     </div>
   </div>
 </section>

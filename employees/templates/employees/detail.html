@@ -1,0 +1,19 @@
+{% load static %}
+<div class="modal-content px-5">
+  <div class="modal-header">
+    <h1 class="modal-title">Detalhes</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body m-auto">
+    <div class="mb-4 details__div-photo">
+      <img src="{{ object.photo.url }}" alt="Foto de perfil" class="details__photo">
+    </div>
+    <p><b>Nome:</b> {{ object.first_name }}</p>
+    <p><b>Sobrenome:</b> {{ object.last_name }}</p>
+    <p><b>CPF:</b> {{ object.cpf }}</p>
+    <p><b>E-mail:</b> {{ object.email }}</p>
+    <p><b>Telefone:</b> {{ object.phone }}</p>
+    <p><b>Cargo:</b> {{ object.groups.all.0 }}</p>
+  </div>
+</div>
