@@ -123,14 +123,14 @@
         </thead>
 
         <tbody class="table-group-divider">
-          {% for employee in '0000000000' %}
+          {% for employee in object_list %}
           <tr class="employees__tr">
-            <td scope="row">Funcinário 1</td>
-            <td>Funcinário 1</td>
-            <td>12300000000</td>
-            <td>funcionario1@wxyz</td>
-            <td>(00)123123123</td>
-            <td>Repositor</td>
+            <td scope="row">{{ employee.first_name }}</td>
+            <td>{{ employee.last_name }}</td>
+            <td>{{ employee.cpf }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.groups.all.0 }}</td>
             <td>
               <a class="btn" data-bs-toggle="modal" href="#details_employee" role="button">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
@@ -248,7 +248,7 @@
                       {% csrf_token %}
 
                       <p>Confime abaixo se deseja excluir Funcinário 1</p>
-                      
+
                       <div class="modal-footer">
                         <button class="btn btn-primary employees__button">Excluir</button>
                       </div>
@@ -262,6 +262,38 @@
           {% endfor %}
         </tbody>
       </table>
+      {% if is_paginated %}
+      <nav>
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+          <li class="page-item d-flex">
+            <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                aria-hidden="true">&laquo;</span></a>
+          </li>
+          {% endif %}
+
+          {% for page_number in page_obj.paginator.page_range %}
+          {% if page_obj.number == page_number %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">{{ page_number }}</a>
+          </li>
+          {% else %}
+          <li class="page-item"><a class="page-link text-black" href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+          <li class="page-item d-flex">
+            <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                aria-hidden="true">&raquo;</span></a>
+            <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
     </div>
   </div>
 </section>
