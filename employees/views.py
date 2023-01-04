@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from core.models import User
 
@@ -18,6 +18,16 @@ class EmployeeList(UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.groups.filter(name='Gerente').exists()
 
+
+class EmployeeDetail(UserPassesTestMixin, DetailView):
+    login_url = '/login'
+    model = User
+    template_name = 'employees/detail.html'
+    queryset = User.objects.filter(groups__name__in=['Repositor', 'Vendedor'])
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Gerente').exists()
+        
 
 def add_employee(request):
     return redirect('employees')
