@@ -31,80 +31,8 @@
       </form>
 
       <div>
-        <a data-bs-toggle="modal" href="#add_employee" role="button">
-          <button type="submit" class="btn btn-primary px-5 text-white employees__button">Adicionar</button>
-        </a>
-      </div>
-
-      <div class="modal fade" id="add_employee" aria-hidden="true" tabindex="-1">
-        <div class="modal-lg modal-dialog modal-dialog-centered">
-          <div class="modal-content px-5">
-            <div class="modal-header">
-              <h1 class="modal-title">Cadastrar Funcinário</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              <form action="{% url 'add_employee' %}" method="POST">
-                {% csrf_token %}
-
-                <div class="mb-5 form__field">
-                  <label for="first_name" class="form-label">Nome</label>
-                  <input type="text" class="form-control form__input" id="first_name">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="last_name" class="form-label">Sobrenome</label>
-                  <input type="text" class="form-control form__input" id="last_name">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="phone_number" class="form-label">Telefone</label>
-                  <input type="tel" class="form-control form__input" id="phone_number">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="cpf" class="form-label">CPF</label>
-                  <input type="text" class="form-control form__input" id="cpf">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="photo" class="form-label">Foto</label>
-                  <input type="file" class="form-control form__input" id="photo">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="email" class="form-label">E-mail</label>
-                  <input type="email" class="form-control form__input" id="email">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="password" class="form-label">Senha</label>
-                  <input type="password" class="form-control form__input" id="password">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <p class="form-label">Cargo</p>
-                  <div class="d-flex flex-column">
-                    <div>
-                      <input type="radio" id="stocker" name="position" value="R" class="form__input">
-                      <label for="stocker">Repositor</label>
-                    </div>
-
-                    <div>
-                      <input type="radio" id="seller" name="position" value="V" class="form__input">
-                      <label for="seller">Vendedor</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="modal-footer">
-                  <button class="btn btn-primary employees__button">Cadastrar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <button hx-get="{% url 'add_employee' %}" hx-target="#dialog"
+          class="btn btn-primary px-5 text-white employees__button" data-bs-toggle="modal">Adicionar</button>
       </div>
     </div>
 
@@ -273,10 +201,6 @@
         </ul>
       </nav>
       {% endif %}
-    </div>
-
-    <div id="modal" class="modal fade">
-      <div id="dialog" class="modal-dialog modal-dialog-centered" hx-target="this"></div>
     </div>
   </div>
 </section>
