@@ -68,34 +68,11 @@
                 data-bs-toggle="modal">
                 <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
               </button>
-              <a class="btn" data-bs-toggle="modal" href="#delete_employee" role="button">
+              <button hx-get="{% url 'delete_employee' employee.id %}" hx-target="#dialog" class="btn"
+                data-bs-toggle="modal">
                 <img src="{% static 'img/delete.svg' %}" alt="Ícone apagar" class="icon-delete">
-              </a>
+              </button>
             </td>
-
-            <div class="modal fade employees__forms" id="delete_employee" aria-hidden="true" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Excluir Funcinário</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body">
-                    <form action="{% url 'delete_employee' 1 %}" method="POST">
-                      {% csrf_token %}
-
-                      <p>Confime abaixo se deseja excluir Funcinário 1</p>
-
-                      <div class="modal-footer">
-                        <button class="btn btn-primary employees__button">Excluir</button>
-                      </div>
-                    </form>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           </tr>
           {% endfor %}
         </tbody>
