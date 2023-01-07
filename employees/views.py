@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from core.models import User
 from django.contrib.auth.models import Group
@@ -109,5 +109,27 @@ class EmployeeUpdate(UserPassesTestMixin, UpdateView):
         return self.request.user.groups.filter(name='Gerente').exists()
 
 
-def delete_employee(request, id):
-    return redirect('employees')
+class EmployeeDelete(UserPassesTestMixin, DeleteView):
+    login_url = '/login'
+    model = User
+    template_name = 'employees/delete.html'
+    success_url = reverse_lazy('employees')
+    queryset = User.objects.filter(groups__name__in=['Repositor', 'Vendedor'])
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        message = f'Funcionário, excluído com sucesso!'
+
+        response.headers = {
+                    'HX-Trigger': json.dumps({
+                        "showMessage": message
+                    })}
+                    
+        messages.success(self.request, message)
+
+        return response
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Gerente').exists()
+
