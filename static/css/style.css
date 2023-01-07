@@ -87,6 +87,10 @@ body {
   background-color: #E8E9EB;
 }
 
+.toast__body {
+  font-size: 1.8rem;
+}
+
 .footer {
   padding: 0 15px;
   height: 60px;

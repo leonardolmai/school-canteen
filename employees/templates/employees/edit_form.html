@@ -1,0 +1,33 @@
+{% load bootstrap5 %}
+
+<div class="modal-content px-5">
+  <div class="modal-header">
+    <h1 class="modal-title">Editar Funcinário</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <form hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' hx-encoding="multipart/form-data">
+
+      {% bootstrap_form form %}
+
+      <div class="mb-3 form__field">
+        <p class="">Cargo </p>
+        <div class="d-flex flex-column">
+          <div>
+            <label for="seller">Vendedor</label>
+            <input type="radio" id="seller" name="group" value="Vendedor" class="form__input">
+          </div>
+          <div>
+            <label for="stocker">Repositor</label>
+            <input type="radio" id="stocker" name="group" value="Repositor" class="form__input">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button hx-post="{{ request.path }}" type="submit" class="btn btn-primary employees__button">Atualizar</button>
+      </div>
+    </form>
+  </div>
+</div>
