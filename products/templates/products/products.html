@@ -72,7 +72,7 @@
             <td scope="row">{{ product.name }}</td>
             <td>R${{ product.price|floatformat:2 }}</td>
             <td>{{ product.quantity }}</td>
-            <td>{{ product.category }}</td>
+            <td>{{ product.category|default:'...' }}</td>
             <td>{{ product.validity }}</td>
             <td>
               <button hx-get="{% url 'detail_product' product.id %}" hx-target="#dialog" class="btn"
