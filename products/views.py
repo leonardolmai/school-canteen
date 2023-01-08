@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Product
 from .forms import ProductModelForm
@@ -55,9 +55,29 @@ class ProductCreate(UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists()
 
+class ProductUpdate(UserPassesTestMixin, UpdateView):
+    login_url = '/login'
+    form_class = ProductModelForm
+    model = Product
+    template_name = 'products/edit_form.html'
+    success_url = reverse_lazy('products')
 
-def edit_product(request, id):
-    return redirect('products')
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        product = form.instance
+        message = f'Produto {product.name}, atualizado com sucesso!'
+        messages.success(self.request, message)
+
+        response.headers = {
+                    'HX-Trigger': json.dumps({
+                        "showMessage": message
+                    })}
+
+        return response
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists()
+
 
 def delete_product(request, id):
     return redirect('products')
