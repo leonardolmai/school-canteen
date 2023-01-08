@@ -7,7 +7,7 @@
   <div class="modal-body">
     <form hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'>
 
-      <p>Confime abaixo se deseja excluir {{ object.get_full_name }}</p>
+      <p>Confirme abaixo se deseja excluir {{ object.get_full_name }}</p>
 
       <div class="modal-footer">
         <button hx-post="{{ request.path }}" type="submit" class="btn btn-primary employees__button">Excluir</button>
