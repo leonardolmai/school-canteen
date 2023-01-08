@@ -79,70 +79,15 @@
                 data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
               </button>
-              <a class="btn" data-bs-toggle="modal" href="#edit_product" role="button">
+              <button hx-get="{% url 'edit_product' product.id %}" hx-target="#dialog" class="btn"
+                data-bs-toggle="modal">
                 <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
-              </a>
+              </button>
               <a class="btn" data-bs-toggle="modal" href="#delete_product" role="button">
                 <img src="{% static 'img/delete.svg' %}" alt="Ícone apagar" class="icon-delete">
               </a>
             </td>
 
-            <div class="modal fade products__forms" id="edit_product" aria-hidden="true" tabindex="-1">
-              <div class="modal-lg modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Editar Produto</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body">
-                    <form action="{% url 'edit_product' 1 %}" method="POST">
-                      {% csrf_token %}
-
-                      <div class="mb-5 form__field">
-                        <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control form__input" id="name" value="Produto 1">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="price" class="form-label">Preço</label>
-                        <input type="number" class="form-control form__input" id="price" value="5.00">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="quantity" class="form-label">Quantidade</label>
-                        <input type="number" class="form-control form__input" id="quantity" value="123">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="validity" class="form-label">Validade</label>
-                        <input type="date" class="form-control form__input" id="validity" value="2022-12-02">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label class="form-label">Categoria</label>
-                        <select class="form-select form-control products__select">
-                          <option value="" selected disabled>Nenhuma selecionada</option>
-                          {% for c in '00000' %}
-                          <option value="id">Categoria 1</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="description" class="form-label">Descrição</label>
-                        <textarea class="form-control form__input" id="description"
-                          rows="3">Descrição Produto 1</textarea>
-                      </div>
-
-                      <div class="modal-footer">
-                        <button class="btn btn-primary products__button">Atualizar</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="modal fade products__forms" id="delete_product" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content px-5">
