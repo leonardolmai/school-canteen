@@ -1,0 +1,18 @@
+<div class="modal-content px-5">
+  <div class="modal-header">
+    <h1 class="modal-title">Excluir Produto</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <form hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'>
+
+      <p>Confirme abaixo se deseja excluir {{ object.name }}</p>
+
+      <div class="modal-footer">
+        <button hx-post="{{ request.path }}" type="submit" class="btn btn-primary products__button">Excluir</button>
+      </div>
+    </form>
+    </form>
+  </div>
+</div>
