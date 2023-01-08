@@ -132,9 +132,10 @@
             <td>{{ product.category }}</td>
             <td>{{ product.validity }}</td>
             <td>
-              <a class="btn" data-bs-toggle="modal" href="#details_product" role="button">
+              <button hx-get="{% url 'detail_product' product.id %}" hx-target="#dialog" class="btn"
+                data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
-              </a>
+              </button>
               <a class="btn" data-bs-toggle="modal" href="#edit_product" role="button">
                 <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
               </a>
@@ -143,25 +144,6 @@
               </a>
             </td>
 
-            <div class="modal fade products__forms" id="details_product" aria-hidden="true" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Detalhes</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body m-auto">
-                    <p><b>Nome:</b> Produto 1</p>
-                    <p><b>Preço:</b> R$5,00</p>
-                    <p><b>Quantidade:</b> 123</p>
-                    <p><b>Validade:</b> 02/12/2022</p>
-                    <p><b>Categoria:</b> Categoria A</p>
-                    <p><b>Descrição:</b> Descrição Produto 1</p>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="modal fade products__forms" id="edit_product" aria-hidden="true" tabindex="-1">
               <div class="modal-lg modal-dialog modal-dialog-centered">
                 <div class="modal-content px-5">
