@@ -48,65 +48,8 @@
       </form>
 
       <div>
-        <a data-bs-toggle="modal" href="#add_product" role="button">
-          <button type="submit" class="btn btn-primary px-5 text-white products__button">Adicionar</button>
-        </a>
-      </div>
-
-      <div class="modal fade" id="add_product" aria-hidden="true" tabindex="-1">
-        <div class="modal-lg modal-dialog modal-dialog-centered">
-          <div class="modal-content px-5">
-            <div class="modal-header">
-              <h1 class="modal-title">Cadastrar Produto</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              <form action="{% url 'add_product' %}" method="POST">
-                {% csrf_token %}
-
-                <div class="mb-5 form__field">
-                  <label for="name" class="form-label">Nome</label>
-                  <input type="text" class="form-control form__input" id="name">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="price" class="form-label">Preço</label>
-                  <input type="number" class="form-control form__input" id="price">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="quantity" class="form-label">Quantidade</label>
-                  <input type="number" class="form-control form__input" id="quantity">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="validity" class="form-label">Validade</label>
-                  <input type="date" class="form-control form__input" id="validity">
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label class="form-label">Categoria</label>
-                  <select class="form-select form-control products__select">
-                    <option value="" selected disabled>Nenhuma selecionada</option>
-                    {% for c in '00000' %}
-                    <option value="id">Categoria 1</option>
-                    {% endfor %}
-                  </select>
-                </div>
-
-                <div class="mb-5 form__field">
-                  <label for="description" class="form-label">Descrição</label>
-                  <textarea class="form-control form__textarea" id="description" rows="3"></textarea>
-                </div>
-
-                <div class="modal-footer">
-                  <button class="btn btn-primary products__button">Cadastrar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <button hx-get="{% url 'add_product' %}" hx-target="#dialog"
+          class="btn btn-primary px-5 text-white products__button" data-bs-toggle="modal">Adicionar</button>
       </div>
     </div>
 
