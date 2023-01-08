@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Product
 
@@ -17,6 +17,15 @@ class ProductList(UserPassesTestMixin, ListView):
 
     def test_func(self):
         return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists() or self.request.user.groups.filter(name='Vendedor').exists() 
+
+
+class ProductDetail(UserPassesTestMixin, DetailView):
+    login_url = '/login'
+    model = Product
+    template_name = 'products/detail.html'
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists()
 
 
 def add_product(request):
