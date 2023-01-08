@@ -9,7 +9,7 @@
     <p><b>Preço:</b> R${{ object.price|floatformat:2 }}</p>
     <p><b>Quantidade:</b> {{ object.quantity }}</p>
     <p><b>Validade:</b> {{ object.validity }}</p>
-    <p><b>Categoria:</b> {{ object.category }}</p>
-    <p><b>Descrição:</b> {{ object.description }}</p>
+    <p><b>Categoria:</b> {{ object.category|default:'...' }}</p>
+    <p><b>Descrição:</b> {{ object.description|default:'...' }}</p>
   </div>
 </div>
