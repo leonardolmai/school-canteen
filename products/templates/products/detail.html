@@ -1,0 +1,15 @@
+<div class="modal-content px-5">
+  <div class="modal-header">
+    <h1 class="modal-title">Detalhes</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body m-auto">
+    <p><b>Nome:</b> {{ object.name }}</p>
+    <p><b>Preço:</b> R${{ object.price|floatformat:2 }}</p>
+    <p><b>Quantidade:</b> {{ object.quantity }}</p>
+    <p><b>Validade:</b> {{ object.validity }}</p>
+    <p><b>Categoria:</b> {{ object.category|default:'...' }}</p>
+    <p><b>Descrição:</b> {{ object.description|default:'...' }}</p>
+  </div>
+</div>
