@@ -1,9 +1,23 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.views.generic import ListView
+from django.contrib.auth.mixins import UserPassesTestMixin
+from .models import Client
 
 # Create your views here.
 
-def clients(request):
-    return render(request, 'clients/clients.html')
+class ClientList(UserPassesTestMixin, ListView):
+    login_url = '/login'
+    model = Client
+    template_name = 'clients/clients.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        clients = Client.objects.all()
+        return clients
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Vendedor').exists() 
+
 
 def add_client(request):
     return redirect('clients')
