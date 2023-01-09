@@ -104,9 +104,10 @@
             <td>{{ client.email }}</td>
             <td>{{ client.phone }}</td>
             <td>
-              <a class="btn" data-bs-toggle="modal" href="#details_client" role="button">
+              <button hx-get="{% url 'detail_client' client.id %}" hx-target="#dialog" class="btn"
+                data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
-              </a>
+              </button>
               <a class="btn" data-bs-toggle="modal" href="#edit_client" role="button">
                 <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
               </a>
@@ -115,24 +116,6 @@
               </a>
             </td>
 
-            <div class="modal fade clients__forms" id="details_client" aria-hidden="true" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Detalhes</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body m-auto">
-                    <p><b>Nome:</b> Cliente 1</p>
-                    <p><b>Sobrenome:</b> Cliente 1</p>
-                    <p><b>CPF:</b> 12300000000</p>
-                    <p><b>E-mail:</b> cliente@wxyz</p>
-                    <p><b>Telefone:</b> (00)123123123</p>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="modal fade clients__forms" id="edit_client" aria-hidden="true" tabindex="-1">
               <div class="modal-lg modal-dialog modal-dialog-centered">
                 <div class="modal-content px-5">
