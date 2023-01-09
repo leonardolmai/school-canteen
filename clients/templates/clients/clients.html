@@ -61,59 +61,15 @@
                 data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
               </button>
-              <a class="btn" data-bs-toggle="modal" href="#edit_client" role="button">
+              <button hx-get="{% url 'edit_client' client.id %}" hx-target="#dialog" class="btn"
+                data-bs-toggle="modal">
                 <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
-              </a>
+              </button>
               <a class="btn" data-bs-toggle="modal" href="#delete_client" role="button">
                 <img src="{% static 'img/delete.svg' %}" alt="Ícone apagar" class="icon-delete">
               </a>
             </td>
 
-            <div class="modal fade clients__forms" id="edit_client" aria-hidden="true" tabindex="-1">
-              <div class="modal-lg modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Editar Cliente</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body">
-                    <form action="{% url 'edit_client' 1 %}" method="POST">
-                      {% csrf_token %}
-
-                      <div class="mb-5 form__field">
-                        <label for="first_name" class="form-label">Nome</label>
-                        <input type="text" class="form-control form__input" id="first_name" value="Cliente 1">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="last_name" class="form-label">Sobrenome</label>
-                        <input type="text" class="form-control form__input" id="last_name" value="Cliente 1">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="phone_number" class="form-label">Telefone</label>
-                        <input type="tel" class="form-control form__input" id="phone_number" value="(00)123123123">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" class="form-control form__input" id="cpf" value="12300000000">
-                      </div>
-
-                      <div class="mb-5 form__field">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control form__input" id="email" value="cliente1@wxyz">
-                      </div>
-
-                      <div class="modal-footer">
-                        <button class="btn btn-primary clients__button">Atualizar</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="modal fade clients__forms" id="delete_client" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content px-5">
