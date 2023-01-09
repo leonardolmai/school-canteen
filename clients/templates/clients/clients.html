@@ -96,13 +96,13 @@
         </thead>
 
         <tbody class="table-group-divider">
-          {% for client in '0000000000' %}
+          {% for client in object_list %}
           <tr class="clients__tr">
-            <td scope="row">Cliente 1</td>
-            <td>Cliente 1</td>
-            <td>12300000000</td>
-            <td>cliente@wxyz</td>
-            <td>(00)123123123</td>
+            <td scope="row">{{ client.first_name }}</td>
+            <td>{{ client.last_name }}</td>
+            <td>{{ client.cpf }}</td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.phone }}</td>
             <td>
               <a class="btn" data-bs-toggle="modal" href="#details_client" role="button">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
@@ -205,6 +205,39 @@
           {% endfor %}
         </tbody>
       </table>
+
+      {% if is_paginated %}
+      <nav>
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+          <li class="page-item d-flex">
+            <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                aria-hidden="true">&laquo;</span></a>
+          </li>
+          {% endif %}
+
+          {% for page_number in page_obj.paginator.page_range %}
+          {% if page_obj.number == page_number %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">{{ page_number }}</a>
+          </li>
+          {% else %}
+          <li class="page-item"><a class="page-link text-black" href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+          <li class="page-item d-flex">
+            <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                aria-hidden="true">&raquo;</span></a>
+            <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
     </div>
   </div>
 </section>
