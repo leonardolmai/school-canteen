@@ -65,6 +65,7 @@
           </a>
           {% endif %}
 
+          {% if perms.clients.view_client %}
           <a href="{% url 'clients' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/clients.svg' %}" alt="Ícone clientes" class="sidebar__icon">
@@ -72,6 +73,7 @@
               <span class="text-white">Clientes</span>
             </li>
           </a>
+          {% endif %}
 
           <a href="{% url 'sales' %}" class="sidebar__link">
             <li class="sidebar__li">
