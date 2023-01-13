@@ -13,6 +13,7 @@ class UserCreationForm(UserCreationForm):
 
 
 class UserChangeForm(UserChangeForm):
+    password = None
     class Meta(UserChangeForm.Meta):
         model = User
         fields = ('first_name', 'last_name', 'phone', 'cpf', 'photo', 'email')
