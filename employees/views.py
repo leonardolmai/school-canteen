@@ -1,10 +1,8 @@
-from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from core.models import User
 from django.contrib.auth.models import Group
 from core.forms import UserCreationForm, UserChangeForm
-from django.contrib import messages
 from django.urls import reverse_lazy
 import json
 
@@ -32,7 +30,6 @@ class EmployeeCreate(UserPassesTestMixin, CreateView):
 
         user.groups.add(group)
         user.save()
-        messages.success(self.request, message)
 
         response.headers = {
                     'HX-Trigger': json.dumps({
@@ -95,7 +92,6 @@ class EmployeeUpdate(UserPassesTestMixin, UpdateView):
             user.groups.clear()
             user.groups.add(group)
         user.save()
-        messages.success(self.request, message)
 
         response.headers = {
                     'HX-Trigger': json.dumps({
@@ -125,8 +121,6 @@ class EmployeeDelete(UserPassesTestMixin, DeleteView):
                     'HX-Trigger': json.dumps({
                         "showMessage": message
                     })}
-                    
-        messages.success(self.request, message)
 
         return response
 
