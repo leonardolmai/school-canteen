@@ -19,7 +19,5 @@ class Product(models.Model):
     category = models.CharField('categoria', choices=PRODUCT_CATEGORY_CHOICES, max_length=20, blank=True, null=True)
     description = models.TextField('descrição', max_length=255, blank=True, null=True)
 
-    REQUIRED_FIELDS = ['name', 'price', 'quantity', 'validity']
-
     def __str__(self):
         return self.name
