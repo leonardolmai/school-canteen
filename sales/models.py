@@ -21,3 +21,15 @@ class Sale(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class Product_Sale(models.Model):
+    sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField('quantidade')
+
+    class Meta:
+        unique_together = [['sale', 'product']]
+
+    def __str__(self):
+        return f'{self.id}'
