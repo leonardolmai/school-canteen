@@ -51,24 +51,22 @@
         <thead class="text-white sales__thead">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Quantidade</th>
+            <th scope="col">CPF cliente</th>
             <th scope="col">Método de pagamento</th>
             <th scope="col">Total</th>
-            <th scope="col">CPF cliente</th>
-            <th scope="col">Data</th>
+            <th scope="col">Data e hora</th>
             <th scope="col">Detalhes</th>
           </tr>
         </thead>
 
         <tbody class="table-group-divider">
-          {% for sale in '0000000000' %}
+          {% for sale in object_list %}
           <tr class="sales__tr">
-            <td scope="row">1</td>
-            <td>1</td>
-            <td>Cartão</td>
-            <td>R$50,00</td>
-            <td>12300000000</td>
-            <td>01/12/2022</td>
+            <td scope="row">{{ sale.id }}</td>
+            <td>{{ sale.client.cpf }}</td>
+            <td>{{ sale.payment_method }}</td>
+            <td>R${{ sale.total|floatformat:2 }}</td>
+            <td>{{ sale.datetime }}</td>
             <td>
               <a class="btn" data-bs-toggle="modal" href="#details_sale" role="button">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
@@ -101,6 +99,38 @@
           {% endfor %}
         </tbody>
       </table>
+      {% if is_paginated %}
+      <nav>
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+          <li class="page-item d-flex">
+            <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                aria-hidden="true">&laquo;</span></a>
+          </li>
+          {% endif %}
+
+          {% for page_number in page_obj.paginator.page_range %}
+          {% if page_obj.number == page_number %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">{{ page_number }}</a>
+          </li>
+          {% else %}
+          <li class="page-item"><a class="page-link text-black" href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+          <li class="page-item d-flex">
+            <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                aria-hidden="true">&raquo;</span></a>
+            <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
     </div>
   </div>
 </section>
