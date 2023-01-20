@@ -1,0 +1,20 @@
+<div class="modal-content px-5">
+  <div class="modal-header">
+    <h1 class="modal-title">Detalhes</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body m-auto">
+    <p><b>ID:</b> {{ object.id }}</p>
+    <p><b>CPF cliente:</b> {{ object.client.cpf }}</p>
+    <p><b>Método de pagamento:</b> {{ object.payment_method }}</p>
+    <p><b>Produto x quantidade</b></p>
+    <ul>
+      {% for product in object.product_sale_set.all %}
+      <li>{{ product.product.name }} - {{ product.quantity }}</li>
+      {% endfor %}
+    </ul>
+    <p><b>Total:</b> R${{ object.total }}</p>
+    <p><b>Data e hora:</b> {{ object.datetime }}</p>
+  </div>
+</div>

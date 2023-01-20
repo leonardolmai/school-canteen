@@ -68,33 +68,10 @@
             <td>R${{ sale.total|floatformat:2 }}</td>
             <td>{{ sale.datetime }}</td>
             <td>
-              <a class="btn" data-bs-toggle="modal" href="#details_sale" role="button">
+              <button hx-get="{% url 'detail_sale' sale.id %}" hx-target="#dialog" class="btn" data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
-              </a>
+              </button>
             </td>
-
-            <div class="modal fade sales__forms" id="details_sale" aria-hidden="true" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Detalhes</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body m-auto">
-                    <p><b>ID:</b> 1</p>
-                    <p><b>Quantidade:</b> 1</p>
-                    <ul>
-                      <li>Produto 1: 1</li>
-                    </ul>
-                    <p><b>Método de pagamento:</b> Cartão</p>
-                    <p><b>Total:</b> R$50,00</p>
-                    <p><b>CPF cliente:</b> 12300000000</p>
-                    <p><b>Data e hora:</b> 01/12/2022 - 6:20</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </tr>
           {% endfor %}
         </tbody>
