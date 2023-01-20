@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Sale
 
@@ -15,6 +15,15 @@ class SaleList(UserPassesTestMixin, ListView):
         sales = Sale.objects.all()
         return sales
     
+    def test_func(self):
+        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Vendedor').exists()
+
+
+class SaleDetail(UserPassesTestMixin, DetailView):
+    login_url = '/login'
+    model = Sale
+    template_name = 'sales/detail.html'
+
     def test_func(self):
         return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Vendedor').exists()
 
