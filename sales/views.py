@@ -50,10 +50,19 @@ class RegisterSale(UserPassesTestMixin, CreateView):
             client = Client.objects.get(cpf=cpf)
             payment_method = request.POST.get('payment-method')
             sale = Sale(client=client, payment_method=payment_method)
+
+            for name, quantity in products_sold.items():
+                product = Product.objects.get(name=name)
+                if product.quantity < int(quantity):
+                    messages.error(request, f'Quantidade não disponível de {product.name}, tem {product.quantity} em estoque para venda.')
+                    return redirect(self.success_url)
+
             sale.save()
 
             for name, quantity in products_sold.items():
                 product = Product.objects.get(name=name)
+                product.quantity = product.quantity - int(quantity)
+                product.save()
                 product_sale = Product_Sale(sale=sale, product=product, quantity=quantity)
                 product_sale.save()
 
@@ -63,7 +72,7 @@ class RegisterSale(UserPassesTestMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = Product.objects.all()
+        context['products'] = Product.objects.filter(quantity__gte=1)
         return context
 
     def test_func(self):
