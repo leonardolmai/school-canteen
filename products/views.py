@@ -27,7 +27,7 @@ class ProductDetail(UserPassesTestMixin, DetailView):
     template_name = 'products/detail.html'
 
     def test_func(self):
-        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists()
+        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists() or self.request.user.groups.filter(name='Vendedor').exists()
 
 
 class ProductCreate(UserPassesTestMixin, CreateView):
