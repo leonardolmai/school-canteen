@@ -16,7 +16,7 @@ class Sale(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     payment_method = models.CharField('método de pagamento', choices=PAYMENT_METHOD_CHOICES, max_length=20)
     total = models.FloatField(default=0)
-    datetime = models.DateTimeField(default=timezone.now)
+    datetime = models.DateTimeField(auto_now_add=True)
     products = models.ManyToManyField(Product, through='Product_Sale')
 
     def __str__(self):
