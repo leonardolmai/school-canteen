@@ -34,3 +34,6 @@ class Product_Sale(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+    
+    def get_total(self):
+        return self.price * self.quantity
