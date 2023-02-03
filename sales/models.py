@@ -1,7 +1,7 @@
 from django.db import models
 from clients.models import Client
 from products.models import Product
-from django.utils import timezone
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 
@@ -26,6 +26,7 @@ class Sale(models.Model):
 class Product_Sale(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.FloatField('preço', validators=[MinValueValidator(0.0)])
     quantity = models.PositiveIntegerField('quantidade')
 
     class Meta:
