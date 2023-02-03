@@ -5,7 +5,7 @@ from .models import Sale, Product_Sale
 
 class Product_SaleAdminInline(admin.TabularInline):
     model = Product_Sale
-    fields = ('product', 'quantity',)
+    fields = ('product', 'price', 'quantity')
 
 
 class SaleAdmin(admin.ModelAdmin):
@@ -13,7 +13,7 @@ class SaleAdmin(admin.ModelAdmin):
     ordering = ('id', 'total', 'datetime')
     list_display = ('id', 'get_client_cpf', 'payment_method', 'total', 'datetime')
     inlines = (Product_SaleAdminInline,)
-    fields = ('client', 'payment_method')
+    fields = ('client', 'payment_method', 'total')
     list_filter = ('payment_method', 'datetime')
     search_fields = ('client__cpf',)
 
