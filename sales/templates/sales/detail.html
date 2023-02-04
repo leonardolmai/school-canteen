@@ -8,13 +8,13 @@
     <p><b>ID:</b> {{ object.id }}</p>
     <p><b>CPF cliente:</b> {{ object.client.cpf }}</p>
     <p><b>Método de pagamento:</b> {{ object.payment_method }}</p>
-    <p><b>Produto x quantidade</b></p>
+    <p><b>Produto: quantidade x preço = total</b></p>
     <ul>
       {% for product in object.product_sale_set.all %}
-      <li>{{ product.product.name }} - {{ product.quantity }}</li>
+      <li>{{ product.product.name }}: {{ product.quantity }} x R${{ product.price|floatformat:2 }} = R${{ product.get_total|floatformat:2 }}</li>
       {% endfor %}
     </ul>
-    <p><b>Total:</b> R${{ object.total }}</p>
+    <p><b>Total:</b> R${{ object.total|floatformat:2 }}</p>
     <p><b>Data e hora:</b> {{ object.datetime }}</p>
   </div>
 </div>
