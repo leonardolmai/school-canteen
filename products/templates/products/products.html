@@ -46,11 +46,13 @@
           <img src="{% static 'img/search.svg' %}" alt="Ícone pesquisa" class="icon">
         </button>
       </form>
-
+      
+      {% if perms.products.add_product %}
       <div>
         <button hx-get="{% url 'add_product' %}" hx-target="#dialog"
           class="btn btn-primary px-5 text-white products__button" data-bs-toggle="modal">Adicionar</button>
       </div>
+      {% endif %}
     </div>
 
     <div class="products__div-table">
@@ -79,14 +81,20 @@
                 data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
               </button>
+
+              {% if perms.products.change_product %}
               <button hx-get="{% url 'edit_product' product.id %}" hx-target="#dialog" class="btn"
                 data-bs-toggle="modal">
                 <img src="{% static 'img/edit.svg' %}" alt="Ícone editar" class="icon-edit">
               </button>
+              {% endif %}
+
+              {% if perms.products.delete_product %}
               <button hx-get="{% url 'delete_product' product.id %}" hx-target="#dialog" class="btn"
                 data-bs-toggle="modal">
                 <img src="{% static 'img/delete.svg' %}" alt="Ícone apagar" class="icon-delete">
               </button>
+              {% endif %}
             </td>
 
           </tr>

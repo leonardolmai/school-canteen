@@ -2,7 +2,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Product
 from .forms import ProductModelForm
-from django.contrib import messages
 from django.urls import reverse_lazy
 import json
 
@@ -28,7 +27,7 @@ class ProductDetail(UserPassesTestMixin, DetailView):
     template_name = 'products/detail.html'
 
     def test_func(self):
-        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists()
+        return self.request.user.groups.filter(name='Gerente').exists() or self.request.user.groups.filter(name='Repositor').exists() or self.request.user.groups.filter(name='Vendedor').exists()
 
 
 class ProductCreate(UserPassesTestMixin, CreateView):
@@ -42,7 +41,6 @@ class ProductCreate(UserPassesTestMixin, CreateView):
         response = super().form_valid(form)
         product = form.instance
         message = f'Produto {product.name}, cadastrado com sucesso!'
-        messages.success(self.request, message)
 
         response.headers = {
                     'HX-Trigger': json.dumps({
@@ -65,7 +63,6 @@ class ProductUpdate(UserPassesTestMixin, UpdateView):
         response = super().form_valid(form)
         product = form.instance
         message = f'Produto {product.name}, atualizado com sucesso!'
-        messages.success(self.request, message)
 
         response.headers = {
                     'HX-Trigger': json.dumps({
@@ -93,8 +90,6 @@ class ProductDelete(UserPassesTestMixin, DeleteView):
                     'HX-Trigger': json.dumps({
                         "showMessage": message
                     })}
-                    
-        messages.success(self.request, message)
 
         return response
 

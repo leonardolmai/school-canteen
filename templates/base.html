@@ -47,6 +47,7 @@
           </a>
           {% endif %}
 
+          {% if perms.sales.add_sale %}
           <a href="{% url 'register-sale' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/register-sale.svg' %}" alt="Ícone registrar venda" class="sidebar__icon">
@@ -54,6 +55,7 @@
               <span class="text-white">Registrar venda</span>
             </li>
           </a>
+          {% endif %}
 
           {% if perms.products.view_product %}
           <a href="{% url 'products' %}" class="sidebar__link">
@@ -75,6 +77,7 @@
           </a>
           {% endif %}
 
+          {% if perms.sales.view_sale %}
           <a href="{% url 'sales' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/sales.svg' %}" alt="Ícone vendas" class="sidebar__icon">
@@ -82,6 +85,7 @@
               <span class="text-white">Vendas</span>
             </li>
           </a>
+          {% endif %}
 
           <a href="{% url 'summary' %}" class="sidebar__link">
             <li class="sidebar__li">

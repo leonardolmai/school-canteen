@@ -1,9 +1,7 @@
-from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Client
 from .forms import ClientModelForm
-from django.contrib import messages
 from django.urls import reverse_lazy
 import json
 
@@ -43,7 +41,6 @@ class ClientCreate(UserPassesTestMixin, CreateView):
         response = super().form_valid(form)
         client = form.instance
         message = f'Cliente {client.first_name}, cadastrado com sucesso!'
-        messages.success(self.request, message)
 
         response.headers = {
                     'HX-Trigger': json.dumps({
@@ -67,7 +64,6 @@ class ClientUpdate(UserPassesTestMixin, UpdateView):
         response = super().form_valid(form)
         client = form.instance
         message = f'Cliente {client.first_name}, atualizado com sucesso!'
-        messages.success(self.request, message)
 
         response.headers = {
                     'HX-Trigger': json.dumps({
@@ -95,8 +91,6 @@ class ClientDelete(UserPassesTestMixin, DeleteView):
                     'HX-Trigger': json.dumps({
                         "showMessage": message
                     })}
-                    
-        messages.success(self.request, message)
 
         return response
     
