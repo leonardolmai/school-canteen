@@ -63,7 +63,7 @@ class RegisterSale(UserPassesTestMixin, CreateView):
                 product = Product.objects.get(name=name)
                 product.quantity = product.quantity - int(quantity)
                 product.save()
-                product_sale = Product_Sale(sale=sale, product=product, quantity=quantity)
+                product_sale = Product_Sale(sale=sale, product=product, quantity=quantity, price=product.price)
                 product_sale.save()
 
             messages.success(request, 'Venda registrada com sucesso!')
