@@ -142,8 +142,63 @@ class DayReport(UserPassesTestMixin, View):
     def test_func(self):
         return self.request.user.groups.filter(name='Gerente').exists()
 
-def week_report(request):
-    return redirect('sales')
+
+class WeekReport(UserPassesTestMixin, View):
+    login_url = '/login'
+
+    def get(self, request):
+        buffer = io.BytesIO()
+        pdf = canvas.Canvas(buffer)
+
+        current_date = datetime.date.today()
+
+        pdf.setTitle(f'week-report-{current_date.isocalendar()[1]}-{current_date.year}')
+        pdf.setFont('Helvetica-Oblique', 14)
+        pdf.drawString(220, 820, f'Relatório da semana {current_date.isocalendar()[1]} de {current_date.year}')
+       
+        payment_method = Sale.objects.filter(datetime__week=current_date.isocalendar()[1]).values('payment_method').annotate(count=Count('payment_method')).order_by('-count').first()
+        pdf.setFont('Helvetica', 12)
+        if payment_method != None:
+            pdf.drawString(10, 790, f'Método de pagamento mais utilizado: {payment_method["payment_method"]}, em {payment_method["count"]} vendas.')
+
+        sold_amount = sum([product.quantity for product in Product_Sale.objects.filter(sale__datetime__week=current_date.isocalendar()[1])])
+        pdf.drawString(10, 770, f'Foram vendidos: {sold_amount} produtos.')
+
+        total_sales_value = Sale.objects.filter(datetime__week=current_date.isocalendar()[1]).aggregate(Count('id'), Sum('total'))
+        pdf.drawString(10, 750, f'Valor total de vendas: R${total_sales_value["total__sum"]:.2f}')
+
+        y = 720
+        pdf.setFont('Helvetica-Bold', 10)
+        pdf.drawString(10, y, 'ID')
+        pdf.drawString(60, y, 'CPF cliente')
+        pdf.drawString(160, y, 'Método de pagamento')
+        pdf.drawString(280, y, 'Total')
+        pdf.drawString(380, y, 'Data e hora')
+        pdf.line(10, y-5, 585, y-5)
+        y = y - 20
+
+        for sale in Sale.objects.filter(datetime__week=current_date.isocalendar()[1]):
+            if y <= 40:
+                pdf.showPage()
+                y = 790
+            pdf.setFont('Helvetica', 10)
+            pdf.drawString(10, y, f'{sale}')
+            pdf.drawString(60, y, f'{sale.client.cpf}')
+            pdf.drawString(160, y, f'{sale.payment_method}')
+            pdf.drawString(280, y, f'R${sale.total:.2f}')
+            pdf.drawString(380, y, f'{sale.datetime.strftime("%d/%m/%Y às %H:%M")}')
+            pdf.line(10, y-5, 585, y-5)
+            y = y - 20
+
+        pdf.showPage()
+        pdf.save()
+
+        buffer.seek(0)
+
+        return FileResponse(buffer, as_attachment=True, filename=f'week-report-{current_date.isocalendar()[1]}-{current_date.year}.pdf')
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='Gerente').exists()
 
 def month_report(request):
     return redirect('sales')
