@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.db.models import Q
 from core.models import User
 from django.contrib.auth.models import Group
 from core.forms import UserCreationForm, UserChangeForm
@@ -49,7 +50,18 @@ class EmployeeList(UserPassesTestMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        employees = User.objects.filter(groups__name__in=['Repositor', 'Vendedor'])
+        sort = self.request.GET.get('sort')
+        search = self.request.GET.get('search')
+
+        if sort and search:
+            employees = User.objects.filter(Q(groups__name__in=['Repositor', 'Vendedor']), Q(first_name__icontains=search) | Q(last_name__icontains=search) | Q(email__icontains=search) | Q(cpf__icontains=search) | Q(phone__icontains=search) | Q(groups__name__icontains=search)).order_by(sort)
+        elif sort:
+            employees = User.objects.filter(groups__name__in=['Repositor', 'Vendedor']).order_by(sort)
+        elif search:
+            employees = User.objects.filter(Q(groups__name__in=['Repositor', 'Vendedor']), Q(first_name__icontains=search) | Q(last_name__icontains=search) | Q(email__icontains=search) | Q(cpf__icontains=search) | Q(phone__icontains=search) | Q(groups__name__icontains=search))
+        else:
+            employees = User.objects.filter(groups__name__in=['Repositor', 'Vendedor'])
+
         return employees
 
     def test_func(self):
