@@ -9,20 +9,42 @@
 
   <div class="clients__div">
     <div class="pb-3 d-flex justify-content-between clients__div-forms">
-      <form class="d-flex align-items-center" action="{% url 'clients' %}" method="GET">
-        <select name="clients_select" class="form-control clients__select">
+      <form class="d-flex align-items-center" action="" method="GET">
+        <select name="sort" class="form-control clients__select">
           <option value="" selected disabled>Ordenar por</option>
+          {% if request.GET.sort == 'first_name' %}
+          <option value="first_name" selected>Nome</option>
+          {% else %}
           <option value="first_name">Nome</option>
+          {% endif %}
+          {% if request.GET.sort == '-first_name' %}
+          <option value="-first_name" selected>Nome decrescente</option>
+          {% else %}
+          <option value="-first_name">Nome decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == 'last_name' %}
+          <option value="last_name" selected>Sobrenome</option>
+          {% else %}
           <option value="last_name">Sobrenome</option>
+          {% endif %}
+          {% if request.GET.sort == '-last_name' %}
+          <option value="-last_name" selected>Sobrenome decrescente</option>
+          {% else %}
+          <option value="-last_name">Sobrenome decrescente</option>
+          {% endif %}
         </select>
+
+        <input type="hidden" name="search" value="{{ request.GET.search }}">
 
         <button type="submit" class="btn text-white">
           <img src="{% static 'img/sort.svg' %}" alt="Ícone ordenar" class="icon">
         </button>
       </form>
 
-      <form class="d-flex align-items-center" action="{% url 'clients' %}" method="GET">
-        <input type="text" class="form-control clients__input" name="search" placeholder="Buscar...">
+      <form class="d-flex align-items-center" action="" method="GET">
+        <input type="text" class="form-control clients__input" value="{{ request.GET.search }}" name="search" autocomplete="off" placeholder="Buscar...">
+
+        <input type="hidden" name="sort" value="{{ request.GET.sort }}">
 
         <button type="submit" class="btn text-white">
           <img src="{% static 'img/search.svg' %}" alt="Ícone pesquisa" class="icon">
@@ -74,37 +96,58 @@
         </tbody>
       </table>
 
-      {% if is_paginated %}
-      <nav>
-        <ul class="pagination">
-          {% if page_obj.has_previous %}
-          <li class="page-item d-flex">
-            <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
-            <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
-                aria-hidden="true">&laquo;</span></a>
-          </li>
-          {% endif %}
+      {% if request.GET.sort or request.GET.search %}
+        {% if is_paginated %}
+        <nav>
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item d-flex">
+              <a class="page-link me-4 text-black" href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page=1">Primeira</a>
+              <a href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                  aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% endif %}
 
-          {% for page_number in page_obj.paginator.page_range %}
-          {% if page_obj.number == page_number %}
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">{{ page_number }}</a>
-          </li>
-          {% else %}
-          <li class="page-item"><a class="page-link text-black" href="?page={{ page_number }}">{{ page_number }}</a>
-          </li>
-          {% endif %}
-          {% endfor %}
+            <li class="page-item">
+              <a class="page-link text-black">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a>
+            </li>
 
-          {% if page_obj.has_next %}
-          <li class="page-item d-flex">
-            <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
-                aria-hidden="true">&raquo;</span></a>
-            <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
+            {% if page_obj.has_next %}
+            <li class="page-item d-flex">
+              <a class="page-link text-black" href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                  aria-hidden="true">&raquo;</span></a>
+              <a class="page-link ms-4 text-black" href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page={{ page_obj.paginator.num_pages }}">Última</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      {% else %}
+        {% if is_paginated %}
+        <nav>
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item d-flex">
+              <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
+              <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                  aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+              <a class="page-link text-black">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item d-flex">
+              <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                  aria-hidden="true">&raquo;</span></a>
+              <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
       {% endif %}
     </div>
   </div>
