@@ -9,44 +9,108 @@
 
   <div class="products__div">
     <div class="pb-3 d-flex justify-content-between products__div-forms">
-      <form class="d-flex align-items-center" action="{% url 'products' %}" method="GET">
-        <select name="sort-products_select" class="form-control products__select">
+      <form class="d-flex align-items-center" action="" method="GET">
+        <select name="sort" class="form-control products__select">
           <option value="" selected disabled>Ordenar por</option>
+          {% if request.GET.sort == 'name' %}
+          <option value="name" selected>Nome</option>
+          {% else %}
           <option value="name">Nome</option>
-          <option value="increasing_price">Preço crescente</option>
-          <option value="descending_price">Preço decrescente</option>
-          <option value="increasing_quantity">Quantidade crescente</option>
-          <option value="descending_quantity">Quantidade decrescente</option>
-          <option value="increasing_validity">Validade crescente</option>
-          <option value="descending_validity">Validade decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == '-name' %}
+          <option value="-name" selected>Nome decrescente</option>
+          {% else %}
+          <option value="-name">Nome decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == 'price' %}
+          <option value="price" selected>Preço</option>
+          {% else %}
+          <option value="price">Preço</option>
+          {% endif %}
+          {% if request.GET.sort == '-price' %}
+          <option value="-price" selected>Preço decrescente</option>
+          {% else %}
+          <option value="-price">Preço decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == 'quantity' %}
+          <option value="quantity" selected>Quantidade</option>
+          {% else %}
+          <option value="quantity">Quantidade</option>
+          {% endif %}
+          {% if request.GET.sort == '-quantity' %}
+          <option value="-quantity" selected>Quantidade decrescente</option>
+          {% else %}
+          <option value="-quantity">Quantidade decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == 'validity' %}
+          <option value="validity" selected>Validade</option>
+          {% else %}
+          <option value="validity">Validade</option>
+          {% endif %}
+          {% if request.GET.sort == '-validity' %}
+          <option value="-validity" selected>Validade decrescente</option>
+          {% else %}
+          <option value="-validity">Validade decrescente</option>
+          {% endif %}
         </select>
+
+        <input type="hidden" name="filter" value="{{ request.GET.filter }}">
+        <input type="hidden" name="search" value="{{ request.GET.search }}">
 
         <button type="submit" class="btn text-white">
           <img src="{% static 'img/sort.svg' %}" alt="Ícone ordenar" class="icon">
         </button>
       </form>
 
-      <form class="d-flex align-items-center" action="{% url 'products' %}" method="GET">
-        <select name="filter_products_select" class="form-control products__select">
+      <form class="d-flex align-items-center" action="" method="GET">
+        <select name="filter" class="form-control products__select">
           <option value="" selected disabled>Filtrar por categoria</option>
-          {% for c in '00000' %}
-          <option value="id">Categoria A</option>
-          {% endfor %}
+          {% if request.GET.filter == 'Salgado' %}
+          <option value="Salgado" selected>Salgado</option>
+          {% else %}
+          <option value="Salgado">Salgado</option>
+          {% endif %}
+          {% if request.GET.filter == 'Doce' %}
+          <option value="Doce" selected>Doce</option>
+          {% else %}
+          <option value="Doce">Doce</option>
+          {% endif %}
+          {% if request.GET.filter == 'Bebida' %}
+          <option value="Bebida" selected>Bebida</option>
+          {% else %}
+          <option value="Bebida">Bebida</option>
+          {% endif %}
+          {% if request.GET.filter == 'Especial' %}
+          <option value="Especial" selected>Especial</option>
+          {% else %}
+          <option value="Especial">Especial</option>
+          {% endif %}
+          {% if request.GET.filter == 'Outros' %}
+          <option value="Outros" selected>Outros</option>
+          {% else %}
+          <option value="Outros">Outros</option>
+          {% endif %}
         </select>
+
+        <input type="hidden" name="sort" value="{{ request.GET.sort }}">
+        <input type="hidden" name="search" value="{{ request.GET.search }}">
 
         <button type="submit" class="btn text-white">
           <img src="{% static 'img/filter.svg' %}" alt="Ícone filtrar" class="icon">
         </button>
       </form>
-
-      <form class="d-flex align-items-center" action="{% url 'products' %}" method="GET">
-        <input type="text" class="form-control products__input" name="search" placeholder="Buscar...">
+     
+      <form class="d-flex align-items-center" action="" method="GET">
+        <input type="text" class="form-control products__input" value="{{ request.GET.search }}" name="search" autocomplete="off" placeholder="Buscar...">
+        
+        <input type="hidden" name="sort" value="{{ request.GET.sort }}">
+        <input type="hidden" name="filter" value="{{ request.GET.filter }}">
 
         <button type="submit" class="btn text-white">
           <img src="{% static 'img/search.svg' %}" alt="Ícone pesquisa" class="icon">
         </button>
       </form>
-      
+
       {% if perms.products.add_product %}
       <div>
         <button hx-get="{% url 'add_product' %}" hx-target="#dialog"
@@ -96,42 +160,62 @@
               </button>
               {% endif %}
             </td>
-
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      {% if is_paginated %}
-      <nav>
-        <ul class="pagination">
-          {% if page_obj.has_previous %}
-          <li class="page-item d-flex">
-            <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
-            <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
-                aria-hidden="true">&laquo;</span></a>
-          </li>
-          {% endif %}
+      {% if request.GET.sort or request.GET.filter or request.GET.search %}
+        {% if is_paginated %}
+        <nav>
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item d-flex">
+              <a class="page-link me-4 text-black" href="?sort={{ request.GET.sort }}&filter={{ request.GET.filter }}&search={{ request.GET.search }}&page=1">Primeira</a>
+              <a href="?sort={{ request.GET.sort }}&filter={{ request.GET.filter }}&search={{ request.GET.search }}&page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                  aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% endif %}
 
-          {% for page_number in page_obj.paginator.page_range %}
-          {% if page_obj.number == page_number %}
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">{{ page_number }}</a>
-          </li>
-          {% else %}
-          <li class="page-item"><a class="page-link text-black" href="?page={{ page_number }}">{{ page_number }}</a>
-          </li>
-          {% endif %}
-          {% endfor %}
+            <li class="page-item">
+              <a class="page-link text-black">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a>
+            </li>
 
-          {% if page_obj.has_next %}
-          <li class="page-item d-flex">
-            <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
-                aria-hidden="true">&raquo;</span></a>
-            <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
+            {% if page_obj.has_next %}
+            <li class="page-item d-flex">
+              <a class="page-link text-black" href="?sort={{ request.GET.sort }}&filter={{ request.GET.filter }}&search={{ request.GET.search }}&page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                  aria-hidden="true">&raquo;</span></a>
+              <a class="page-link ms-4 text-black" href="?sort={{ request.GET.sort }}&filter={{ request.GET.filter }}&search={{ request.GET.search }}&page={{ page_obj.paginator.num_pages }}">Última</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      {% else %}
+        {% if is_paginated %}
+        <nav>
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item d-flex">
+              <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
+              <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                  aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+              <a class="page-link text-black">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item d-flex">
+              <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                  aria-hidden="true">&raquo;</span></a>
+              <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
       {% endif %}
     </div>
   </div>
