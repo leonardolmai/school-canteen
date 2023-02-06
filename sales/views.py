@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.db.models import Q
 from .models import Sale, Product_Sale
 from products.models import Product
 from django.db.models.aggregates import Count, Sum
@@ -22,7 +23,17 @@ class SaleList(UserPassesTestMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        sales = Sale.objects.all()
+        sort = self.request.GET.get('sort')
+        search = self.request.GET.get('search')
+
+        if sort and search:
+            sales = Sale.objects.filter(Q(id__icontains=search) | Q(client__cpf__icontains=search) | Q(payment_method__icontains=search)).order_by(sort)
+        elif sort:
+            sales = Sale.objects.order_by(sort)
+        elif search:
+            sales = Sale.objects.filter(Q(id__icontains=search) | Q(client__cpf__icontains=search) | Q(payment_method__icontains=search))
+        else:
+            sales = Sale.objects.all()
         return sales
     
     def test_func(self):

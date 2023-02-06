@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.db.models import Q
 from .models import Product
 from .forms import ProductModelForm
 from django.urls import reverse_lazy
@@ -14,7 +15,27 @@ class ProductList(UserPassesTestMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        products = Product.objects.all()
+        filter = self.request.GET.get('filter')
+        sort = self.request.GET.get('sort')
+        search = self.request.GET.get('search')
+
+        if sort and filter and search:
+            products = Product.objects.filter(Q(category=filter), Q(name__icontains=search) | Q(category__icontains=search) | Q(description__icontains=search)).order_by(sort)
+        elif sort and filter:
+            products = Product.objects.filter(category=filter).order_by(sort)
+        elif sort and search:
+            products = Product.objects.filter(Q(name__icontains=search) | Q(category__icontains=search) | Q(description__icontains=search)).order_by(sort)
+        elif filter and search:
+            products = Product.objects.filter(Q(category=filter), Q(name__icontains=search) | Q(category__icontains=search) | Q(description__icontains=search))
+        elif sort:
+            products = Product.objects.order_by(sort)
+        elif filter:
+            products = Product.objects.filter(category=filter)
+        elif search:
+            products = Product.objects.filter(Q(name__icontains=search) | Q(category__icontains=search) | Q(description__icontains=search))
+        else:
+            products = Product.objects.all()
+
         return products
 
     def test_func(self):

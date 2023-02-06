@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.db.models import Q
 from .models import Client
 from .forms import ClientModelForm
 from django.urls import reverse_lazy
@@ -14,7 +15,18 @@ class ClientList(UserPassesTestMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        clients = Client.objects.all()
+        sort = self.request.GET.get('sort')
+        search = self.request.GET.get('search')
+
+        if sort and search:
+            clients = Client.objects.filter(Q(first_name__icontains=search) | Q(last_name__icontains=search) | Q(email__icontains=search) | Q(cpf__icontains=search) | Q(phone__icontains=search)).order_by(sort)
+        elif sort:
+            clients = Client.objects.order_by(sort)
+        elif search:
+            clients = Client.objects.filter(Q(first_name__icontains=search) | Q(last_name__icontains=search) | Q(email__icontains=search) | Q(cpf__icontains=search) | Q(phone__icontains=search))
+        else:
+            clients = Client.objects.all()
+
         return clients
 
     def test_func(self):
