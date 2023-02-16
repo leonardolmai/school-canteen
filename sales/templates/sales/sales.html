@@ -148,6 +148,8 @@
     </div>
   </div>
 </section>
+
+{% if user.groups.all.0.name == 'Gerente' %}
 <section class="p-5 report">
   <h1 class="pt-3 pb-5 report__title">Relatórios</h1>
 
@@ -166,4 +168,5 @@
     </form>
   </div>
 </section>
+{% endif %}
 {% endblock content %}
