@@ -65,7 +65,7 @@ body {
   align-items: center;
   padding: 10px 15px;
 }
-.sidebar__li:hover {
+.sidebar__li:hover, .sidebar__li--active {
   background-color: #4DA6F8;
 }
 .sidebar__icon {
