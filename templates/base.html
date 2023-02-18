@@ -38,16 +38,35 @@
       <nav class="sidebar" id="sidebar">
         <ul class="sidebar__ul">
           {% if perms.core.view_user %}
+          {% if request.path == '/employees/' %}
+          <a href="{% url 'employees' %}" class="sidebar__link">
+            <li class="sidebar__li sidebar__li--active">
+              <img src="{% static 'img/employees.svg' %}" alt="Ícone funcinários" class="sidebar__icon">
+              
+              <span class="text-white">Funcinários</span>
+            </li>
+          </a>
+          {% else %}
           <a href="{% url 'employees' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/employees.svg' %}" alt="Ícone funcinários" class="sidebar__icon">
-
+              
               <span class="text-white">Funcinários</span>
             </li>
           </a>
           {% endif %}
+          {% endif %}
 
           {% if perms.sales.add_sale %}
+          {% if request.path == '/sales/register-sale/' %}
+          <a href="{% url 'register-sale' %}" class="sidebar__link">
+            <li class="sidebar__li sidebar__li--active">
+              <img src="{% static 'img/register-sale.svg' %}" alt="Ícone registrar venda" class="sidebar__icon">
+
+              <span class="text-white">Registrar venda</span>
+            </li>
+          </a>
+          {% else %}
           <a href="{% url 'register-sale' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/register-sale.svg' %}" alt="Ícone registrar venda" class="sidebar__icon">
@@ -56,8 +75,18 @@
             </li>
           </a>
           {% endif %}
+          {% endif %}
 
           {% if perms.products.view_product %}
+          {% if request.path == '/products/' %}
+          <a href="{% url 'products' %}" class="sidebar__link">
+            <li class="sidebar__li sidebar__li--active">
+              <img src="{% static 'img/products.svg' %}" alt="Ícone produtos" class="sidebar__icon">
+
+              <span class="text-white">Produtos</span>
+            </li>
+          </a>
+          {% else %}
           <a href="{% url 'products' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/products.svg' %}" alt="Ícone produtos" class="sidebar__icon">
@@ -66,8 +95,18 @@
             </li>
           </a>
           {% endif %}
+          {% endif %}
 
           {% if perms.clients.view_client %}
+          {% if request.path == '/clients/' %}
+          <a href="{% url 'clients' %}" class="sidebar__link">
+            <li class="sidebar__li sidebar__li--active">
+              <img src="{% static 'img/clients.svg' %}" alt="Ícone clientes" class="sidebar__icon">
+
+              <span class="text-white">Clientes</span>
+            </li>
+          </a>
+          {% else %}
           <a href="{% url 'clients' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/clients.svg' %}" alt="Ícone clientes" class="sidebar__icon">
@@ -76,8 +115,18 @@
             </li>
           </a>
           {% endif %}
+          {% endif %}
 
           {% if perms.sales.view_sale %}
+          {% if request.path == '/sales/' %}
+          <a href="{% url 'sales' %}" class="sidebar__link">
+            <li class="sidebar__li sidebar__li--active">
+              <img src="{% static 'img/sales.svg' %}" alt="Ícone vendas" class="sidebar__icon">
+
+              <span class="text-white">Vendas</span>
+            </li>
+          </a>
+          {% else %}
           <a href="{% url 'sales' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/sales.svg' %}" alt="Ícone vendas" class="sidebar__icon">
@@ -86,7 +135,17 @@
             </li>
           </a>
           {% endif %}
+          {% endif %}
 
+          {% if request.path == '/summary/' %}
+          <a href="{% url 'summary' %}" class="sidebar__link">
+            <li class="sidebar__li sidebar__li--active">
+              <img src="{% static 'img/summary.svg' %}" alt="Ícone resumo" class="sidebar__icon">
+
+              <span class="text-white">Resumo</span>
+            </li>
+          </a>
+          {% else %}
           <a href="{% url 'summary' %}" class="sidebar__link">
             <li class="sidebar__li">
               <img src="{% static 'img/summary.svg' %}" alt="Ícone resumo" class="sidebar__icon">
@@ -94,6 +153,7 @@
               <span class="text-white">Resumo</span>
             </li>
           </a>
+          {% endif %}
 
           <a href="{% url 'logout' %}" class="sidebar__link">
             <li class="sidebar__li">
