@@ -76,7 +76,7 @@ body {
     padding: 10px 15px;
   }
 
-  &__li:hover {
+  &__li:hover, &__li--active {
     background-color: $light-blue-color;
   }
 
@@ -100,6 +100,10 @@ body {
 .main {
   width: 100%;
   background-color: $light-gray-color;
+}
+
+.toast__body {
+  font-size: 1.8rem;
 }
 
 .footer {
@@ -126,7 +130,7 @@ body {
     position: absolute;
     min-height: 100vh;
     width: 100%;
-    z-index: 2;
+    z-index: 4;
 
     &__li {
       justify-content: center;

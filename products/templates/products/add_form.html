@@ -1,0 +1,19 @@
+{% load bootstrap5 %}
+
+<div class="modal-content px-5">
+  <div class="modal-header">
+    <h1 class="modal-title">Cadastrar Produto</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <form hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'>
+
+      {% bootstrap_form form %}
+
+      <div class="modal-footer">
+        <button hx-post="{{ request.path }}" type="submit" class="btn btn-primary products__button">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+</div>

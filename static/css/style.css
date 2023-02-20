@@ -65,7 +65,7 @@ body {
   align-items: center;
   padding: 10px 15px;
 }
-.sidebar__li:hover {
+.sidebar__li:hover, .sidebar__li--active {
   background-color: #4DA6F8;
 }
 .sidebar__icon {
@@ -85,6 +85,10 @@ body {
 .main {
   width: 100%;
   background-color: #E8E9EB;
+}
+
+.toast__body {
+  font-size: 1.8rem;
 }
 
 .footer {
@@ -109,7 +113,7 @@ body {
     position: absolute;
     min-height: 100vh;
     width: 100%;
-    z-index: 2;
+    z-index: 4;
   }
   .sidebar__li {
     justify-content: center;

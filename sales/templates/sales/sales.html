@@ -9,39 +9,55 @@
 
   <div class="sales__div">
     <div class="pb-3 d-flex justify-content-between sales__div-forms">
-      <form class="d-flex align-items-center" action="{% url 'sales' %}" method="GET">
-        <select name="sales_select" class="form-control sales__select">
+      <form class="d-flex align-items-center" action="" method="GET">
+        <select name="sort" class="form-control sales__select">
           <option value="" selected disabled>Ordenar por</option>
+          {% if request.GET.sort == 'id' %}
+          <option value="id" selected>ID</option>
+          {% else %}
           <option value="id">ID</option>
-          <option value="increasing_total">Total crescente</option>
-          <option value="descending_total">Total decrescente</option>
-          <option value="rising_date">Data crescente</option>
-          <option value="falling_date">Data decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == '-id' %}
+          <option value="-id" selected>ID decrescente</option>
+          {% else %}
+          <option value="-id">ID decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == 'total' %}
+          <option value="total" selected>Total</option>
+          {% else %}
+          <option value="total">Total</option>
+          {% endif %}
+          {% if request.GET.sort == '-total' %}
+          <option value="-total" selected>Total decrescente</option>
+          {% else %}
+          <option value="-total">Total decrescente</option>
+          {% endif %}
+          {% if request.GET.sort == 'datetime' %}
+          <option value="datetime" selected>Data</option>
+          {% else %}
+          <option value="datetime">Data</option>
+          {% endif %}
+          {% if request.GET.sort == '-datetime' %}
+          <option value="-datetime" selected>Data decrescente</option>
+          {% else %}
+          <option value="-datetime">Data decrescente</option>
+          {% endif %}
         </select>
+
+        <input type="hidden" name="search" value="{{ request.GET.search }}">
 
         <button type="submit" class="btn text-white">
           <img src="{% static 'img/sort.svg' %}" alt="Ícone ordenar" class="icon">
         </button>
       </form>
 
-      <form class="d-flex align-items-center" action="{% url 'sales' %}" method="GET">
-        <input type="text" class="form-control sales__input" name="search" placeholder="Buscar...">
+      <form class="d-flex align-items-center" action="" method="GET">
+        <input type="text" class="form-control sales__input" value="{{ request.GET.search }}" name="search" autocomplete="off" placeholder="Buscar...">
+
+        <input type="hidden" name="sort" value="{{ request.GET.sort }}">
 
         <button type="submit" class="btn text-white">
           <img src="{% static 'img/search.svg' %}" alt="Ícone pesquisa" class="icon">
-        </button>
-      </form>
-
-      <form class="d-flex align-items-center" action="{% url 'sales' %}" method="GET">
-        <select name="sales_select" class="form-control sales__select">
-          <option value="" selected disabled>Filtrar por cliente</option>
-          {% for c in '00000' %}
-          <option value="id">Cliente 1</option>
-          {% endfor %}
-        </select>
-
-        <button type="submit" class="btn text-white">
-          <img src="{% static 'img/filter.svg' %}" alt="Ícone filtrar" class="icon">
         </button>
       </form>
     </div>
@@ -51,59 +67,89 @@
         <thead class="text-white sales__thead">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Quantidade</th>
+            <th scope="col">CPF cliente</th>
             <th scope="col">Método de pagamento</th>
             <th scope="col">Total</th>
-            <th scope="col">CPF cliente</th>
-            <th scope="col">Data</th>
+            <th scope="col">Data e hora</th>
             <th scope="col">Detalhes</th>
           </tr>
         </thead>
 
         <tbody class="table-group-divider">
-          {% for sale in '0000000000' %}
+          {% for sale in object_list %}
           <tr class="sales__tr">
-            <td scope="row">1</td>
-            <td>1</td>
-            <td>Cartão</td>
-            <td>R$50,00</td>
-            <td>12300000000</td>
-            <td>01/12/2022</td>
+            <td scope="row">{{ sale.id }}</td>
+            <td>{{ sale.client.cpf }}</td>
+            <td>{{ sale.payment_method }}</td>
+            <td>R${{ sale.total|floatformat:2 }}</td>
+            <td>{{ sale.datetime }}</td>
             <td>
-              <a class="btn" data-bs-toggle="modal" href="#details_sale" role="button">
+              <button hx-get="{% url 'detail_sale' sale.id %}" hx-target="#dialog" class="btn" data-bs-toggle="modal">
                 <img src="{% static 'img/detail.svg' %}" alt="Ícone detalhes" class="icon-detail">
-              </a>
+              </button>
             </td>
-
-            <div class="modal fade sales__forms" id="details_sale" aria-hidden="true" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content px-5">
-                  <div class="modal-header">
-                    <h1 class="modal-title">Detalhes</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body m-auto">
-                    <p><b>ID:</b> 1</p>
-                    <p><b>Quantidade:</b> 1</p>
-                    <ul>
-                      <li>Produto 1: 1</li>
-                    </ul>
-                    <p><b>Método de pagamento:</b> Cartão</p>
-                    <p><b>Total:</b> R$50,00</p>
-                    <p><b>CPF cliente:</b> 12300000000</p>
-                    <p><b>Data e hora:</b> 01/12/2022 - 6:20</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </tr>
           {% endfor %}
         </tbody>
       </table>
+      {% if request.GET.sort or request.GET.search %}
+        {% if is_paginated %}
+        <nav>
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item d-flex">
+              <a class="page-link me-4 text-black" href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page=1">Primeira</a>
+              <a href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                  aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+              <a class="page-link text-black">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item d-flex">
+              <a class="page-link text-black" href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                  aria-hidden="true">&raquo;</span></a>
+              <a class="page-link ms-4 text-black" href="?sort={{ request.GET.sort }}&search={{ request.GET.search }}&page={{ page_obj.paginator.num_pages }}">Última</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      {% else %}
+        {% if is_paginated %}
+        <nav>
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item d-flex">
+              <a class="page-link me-4 text-black" href="?page=1">Primeira</a>
+              <a href="?page={{ page_obj.previous_page_number }}" class="page-link text-black" aria-label="Previous"><span
+                  aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+              <a class="page-link text-black">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item d-flex">
+              <a class="page-link text-black" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span
+                  aria-hidden="true">&raquo;</span></a>
+              <a class="page-link ms-4 text-black" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      {% endif %}
     </div>
   </div>
 </section>
+
+{% if user.groups.all.0.name == 'Gerente' %}
 <section class="p-5 report">
   <h1 class="pt-3 pb-5 report__title">Relatórios</h1>
 
@@ -122,4 +168,5 @@
     </form>
   </div>
 </section>
+{% endif %}
 {% endblock content %}
