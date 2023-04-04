@@ -28,10 +28,10 @@ if READ_DOT_ENV_FILE:
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ob13!*7uc5^+6jjy@^t8pd7fc8ae94=_p+27upz-t5kh&m^mv1'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG')
 
 ALLOWED_HOSTS = []
 
